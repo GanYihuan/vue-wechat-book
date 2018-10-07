@@ -49,3 +49,7 @@ npm install sass-loader node-sass -D
 
 * **server/controllers/top.js** 获取部分图书数据, 按照浏览数量来排序
 * **components/TopSwiper.vue**
+
+## 图书详情页
+
+* **components/BookInfo.vue**
