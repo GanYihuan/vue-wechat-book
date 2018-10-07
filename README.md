@@ -30,3 +30,8 @@ npm install sass-loader node-sass -D
 * **pages/me/Me.vue** 添加图书到后端
 * **server/route/index.js**
 * **server/controllers/addbook.js**
+
+## 图书
+
+* 图书列表 **pages/books/Book.vue**
+* 星星组件 **components/Rate.vue** [vue-tiny-rate](https://github.com/shengxinjing/vue-tiny-rate)
