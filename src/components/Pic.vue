@@ -7,28 +7,31 @@
       </div>
       <div class="detail">
         <div class="row text-primary">
-          <div class="right">
+          <!-- <div class="right">
             {{book.rate}} <Rate :value='book.rate'></Rate>
-          </div>
+          </div> -->
           <div class="left">
             {{book.title}}
           </div>
         </div>
         <div class="row">
-          <div class="right text-primary">
+          <!-- <div class="right text-primary">
             浏览量:{{book.count}}
-          </div>
+          </div> -->
           <div class="left">
             {{book.author}}
           </div>
         </div>
         <div class="row">
-          <div class="right">
+          <!-- <div class="right">
             {{book.user_info.nickName}}
-          </div>
+          </div> -->
           <div class="left">
             {{book.publisher}}
           </div>
+        </div>
+        <div class="row text-primary">
+          {{book.rate}} <Rate :value='book.rate'></Rate>
         </div>
       </div>
     </div>
@@ -62,33 +65,33 @@ export default {
 
 <style lang='scss' scoped>
 .book-card {
-	margin-top: 5px;
-	margin-bottom: 5px;
-	padding: 5px;
-	font-size: 14px;
-	overflow: hidden;
+	margin-top: 10rpx;
+	margin-bottom: 10rpx;
+	padding: 10rpx;
+	font-size: 28rpx;
+  overflow: hidden;
 	.thumb {
-		float: left;
+    float: left;
 		overflow: hidden;
 		margin: 0 auto;
-		width: 90px;
-		height: 90px;
+		width: 200rpx;
+		height: 200rpx;
 		.img {
 			max-width: 100%;
 			max-height: 100%;
 		}
 	}
 	.detail {
-		margin-left: 100px;
+		margin-left: 200rpx;
 		.row {
-			margin-bottom: 3px;
-			line-height: 20px;
+			margin-bottom: 6rpx;
+			line-height: 40rpx;
 		}
 		.right {
 			float: right;
 		}
 		.left {
-			margin-right: 80px;
+			margin-right: 160rpx;
 		}
 	}
 }
