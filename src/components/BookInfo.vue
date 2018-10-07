@@ -31,6 +31,7 @@
       <div class="badge" v-for='tag in info.tags' :key='tag'>{{tag}}</div>
     </div>
     <div class="summary">
+      <h1 class="headline">书本信息</h1>
       <p v-for='(sum, i) in info.summary' :key='i'>{{sum}}</p>
     </div>
   </div>
@@ -69,6 +70,14 @@ export default {
 		p {
 			text-indent: 2em;
 			font-size: 14px;
+		}
+		.headline {
+			/* margin-top:30rpx; */
+      margin-bottom: 20rpx;
+      text-align: center;
+			font-size: 30rpx;
+			font-weight: 600;
+			color: #2f2f2f;
 		}
 	}
 	.right {
