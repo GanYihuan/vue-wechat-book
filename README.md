@@ -39,3 +39,8 @@ npm install sass-loader node-sass -D
 ## 下拉刷新，加载
 
 * **pages/books/Book.vue**
+
+## 图书访问次数统计
+
+* **pages/detail/Detail.vue**
+* * **server/controllers/bookDetail.js**
