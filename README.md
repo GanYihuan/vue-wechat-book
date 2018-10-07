@@ -35,3 +35,7 @@ npm install sass-loader node-sass -D
 
 * 图书列表 **pages/books/Book.vue**
 * 星星组件 **components/Rate.vue** [vue-tiny-rate](https://github.com/shengxinjing/vue-tiny-rate)
+
+## 下拉刷新，加载
+
+* **pages/books/Book.vue**
