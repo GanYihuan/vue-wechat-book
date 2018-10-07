@@ -7,28 +7,13 @@
       </div>
       <div class="detail">
         <div class="row text-primary">
-          <!-- <div class="right">
-            {{book.rate}} <Rate :value='book.rate'></Rate>
-          </div> -->
-          <div class="left">
-            {{book.title}}
-          </div>
+          {{book.title}}
         </div>
         <div class="row">
-          <!-- <div class="right text-primary">
-            浏览量:{{book.count}}
-          </div> -->
-          <div class="left">
-            {{book.author}}
-          </div>
+          {{book.author}}
         </div>
         <div class="row">
-          <!-- <div class="right">
-            {{book.user_info.nickName}}
-          </div> -->
-          <div class="left">
-            {{book.publisher}}
-          </div>
+          {{book.publisher}}
         </div>
         <div class="row text-primary">
           {{book.rate}} <Rate :value='book.rate'></Rate>
@@ -65,15 +50,14 @@ export default {
 
 <style lang='scss' scoped>
 .book-card {
+	display: flex;
 	margin-top: 10rpx;
 	margin-bottom: 10rpx;
 	padding: 10rpx;
 	font-size: 28rpx;
-  overflow: hidden;
+	overflow: hidden;
 	.thumb {
-    float: left;
-		overflow: hidden;
-		margin: 0 auto;
+		flex: 0 0 200rpx;
 		width: 200rpx;
 		height: 200rpx;
 		.img {
@@ -82,16 +66,14 @@ export default {
 		}
 	}
 	.detail {
-		margin-left: 200rpx;
+		flex: 1;
 		.row {
-			margin-bottom: 6rpx;
+			margin-bottom: 10rpx;
 			line-height: 40rpx;
-		}
-		.right {
-			float: right;
-		}
-		.left {
-			margin-right: 160rpx;
+			/* 超出显示...(two) */
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
 		}
 	}
 }
