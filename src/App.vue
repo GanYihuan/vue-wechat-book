@@ -1,7 +1,7 @@
 <script>
 export default {
 	async created() {
-		console.log('小程序启动了')
+		console.log('小程序启动了!')
 	}
 }
 </script>

@@ -1,5 +1,8 @@
 {
-  "pages": ["pages/books/main", "pages/comments/main"],
+  "pages": [
+    "pages/books/main",
+    "pages/me/main"
+  ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
@@ -16,10 +19,10 @@
         "selectedIconPath": "static/img/book-active.png"
       },
       {
-        "pagePath": "pages/comments/main",
-        "text": "评论",
-        "iconPath": "static/img/todo.png",
-        "selectedIconPath": "static/img/todo-active.png"
+        "pagePath": "pages/me/main",
+        "text": "我",
+        "iconPath": "static/img/me.png",
+        "selectedIconPath": "static/img/me-active.png"
       }
     ]
   }
