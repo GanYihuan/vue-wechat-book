@@ -15,6 +15,8 @@
       class='btn'
       v-else
       @click='login'
+      open-type="getUserInfo"
+      lang="zh_CN"
     >
       点击登录
     </button>
@@ -23,8 +25,9 @@
 
 <script>
 import qcloud from 'wafer2-client-sdk'
-import { showSuccess, post, showModal } from '@/util'
+// import { showSuccess, post, showModal } from '@/util'
 import config from '@/config'
+import { post, showModal } from '@/util'
 
 export default {
 	data() {
@@ -64,26 +67,31 @@ export default {
 			showModal('添加成功', `${res.title}添加成功`)
 		},
 		login() {
-			let user = wx.getStorageSync('userInfo')
-			if (!user) {
+			const session = qcloud.Session.get()
+			if (session) {
+				// 第二次登录
+				// 或者本地已经有登录态
+				// 可使用本函数更新登录态
 				qcloud.setLoginUrl(config.loginUrl)
-				qcloud.login({
-					success: userInfo => {
-						console.log('登录成功', userInfo)
-						/* openId 隐藏在 weapp/user 里面 */
-						qcloud.request({
-							url: config.userUrl,
-							login: true,
-							success: userRes => {
-								console.log(userRes)
-								wx.setStorageSync('userInfo', userRes.data.data)
-								this.userInfo = userRes.data.data
-								showSuccess('登录成功')
-							}
-						})
+				qcloud.loginWithCode({
+					success: res => {
+						console.log('第二次登录登录成功', res)
+            this.userInfo = res
 					},
 					fail: err => {
-						console.log('登录失败', err)
+						console.error('第二次登录登录错误', err)
+					}
+				})
+			} else {
+				// 首次登录
+				qcloud.setLoginUrl(config.loginUrl)
+				qcloud.login({
+					success: res => {
+						console.log('登录成功', res)
+            this.userInfo = res
+					},
+					fail: err => {
+						console.error('登录错误', err)
 					}
 				})
 			}
