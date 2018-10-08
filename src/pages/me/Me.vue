@@ -35,7 +35,8 @@ export default {
 			userInfo: {
 				avatarUrl: '../../../static/img/unlogin.png',
 				nickName: '未登录'
-			}
+			},
+			logged: false
 		}
 	},
 	/* 跳转到该页面就自动执行, onShow 是微信 API 的生命周期 */
@@ -67,33 +68,34 @@ export default {
 			showModal('添加成功', `${res.title}添加成功`)
 		},
 		login() {
-			const session = qcloud.Session.get()
-			if (session) {
-				// 第二次登录
-				// 或者本地已经有登录态
-				// 可使用本函数更新登录态
-				qcloud.setLoginUrl(config.loginUrl)
-				qcloud.loginWithCode({
-					success: res => {
-						console.log('第二次登录登录成功', res)
-            this.userInfo = res
-					},
-					fail: err => {
-						console.error('第二次登录登录错误', err)
-					}
-				})
-			} else {
-				// 首次登录
-				qcloud.setLoginUrl(config.loginUrl)
-				qcloud.login({
-					success: res => {
-						console.log('登录成功', res)
-            this.userInfo = res
-					},
-					fail: err => {
-						console.error('登录错误', err)
-					}
-				})
+			let user = wx.getStorageSync('userInfo')
+			if (!user) {
+				const session = qcloud.Session.get()
+				if (session) {
+					qcloud.loginWithCode({
+						success: res => {
+              this.userInfo = res
+              wx.setStorageSync('userInfo', res)
+							console.log('第二次登录登录成功', res)
+						},
+						fail: err => {
+							console.error('第二次登录登录错误', err)
+						}
+					})
+				} else {
+					// 首次登录
+					qcloud.setLoginUrl(config.loginUrl)
+					qcloud.login({
+						success: res => {
+							this.userInfo = res
+              wx.setStorageSync('userInfo', res)
+              console.log('登录成功', res)
+						},
+						fail: err => {
+							console.error('登录错误', err)
+						}
+					})
+				}
 			}
 		}
 	}
