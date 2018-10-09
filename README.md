@@ -53,3 +53,5 @@ npm install sass-loader node-sass -D
 ## 图书详情页
 
 * **components/BookInfo.vue**
+
+## 评论

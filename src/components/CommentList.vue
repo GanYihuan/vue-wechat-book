@@ -18,13 +18,6 @@
           >
           {{comment.title}}
         </div>
-        <div class="right">
-          {{comment.location||'未知地点'}}
-          <span class="text-primary">
-            --
-          </span>
-          {{comment.phone||'未知型号'}}
-        </div>
       </div>
       <div class="content">
         {{comment.comment}}
