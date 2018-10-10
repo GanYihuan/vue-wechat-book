@@ -51,22 +51,22 @@ export default {
 
 <style lang='scss'>
 .comment-list {
-	font-size: 14px;
+	font-size: 28rpx;
 	background: #eee;
 	.comment {
-		margin-bottom: 10px;
-		padding: 5px 20px;
+		margin-bottom: 20rpx;
+		padding: 10rpx 40rpx;
 		background: #fff;
 		.content {
-			margin: 10px 0;
+			margin: 20rpx 0;
 		}
 		.user {
 			.inline {
 				display: inline;
 				.avatar {
 					border-radius: 50%;
-					width: 20px;
-					height: 20px;
+					width: 40rpx;
+					height: 40rpx;
 				}
 			}
 		}

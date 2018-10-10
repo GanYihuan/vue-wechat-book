@@ -55,21 +55,21 @@ export default {
 
 <style lang='scss'>
 .bookinfo {
-	font-size: 14px;
+	font-size: 28rpx;
 	.badge {
 		display: inline-block;
-		margin: 5px;
-		padding: 5px;
-		border: 1px #ea5a49 solid;
-		border-radius: 10px;
+		margin: 10rpx;
+		padding: 10rpx;
+		border: 1rpx #ea5a49 solid;
+		border-radius: 20rpx;
 		color: #ea5a49;
 	}
 	.summary {
-		margin-top: 10px;
-		padding: 0 15px;
+		margin-top: 20rpx;
+		padding: 0 30rpx;
 		p {
 			text-indent: 2em;
-			font-size: 14px;
+			font-size: 28rpx;
 		}
 		.headline {
 			/* margin-top:30rpx; */
@@ -84,11 +84,11 @@ export default {
 		float: right;
 	}
 	.detail {
-		padding: 5px 10px;
+		padding: 10rpx 20rpx;
 		.avatar {
 			border-radius: 50%;
-			width: 20px;
-			height: 20px;
+			width: 40rpx;
+			height: 40rpx;
 			vertical-align: middle;
 		}
 	}
@@ -99,7 +99,7 @@ export default {
 		overflow: hidden;
 		.back {
 			width: 100%;
-			filter: blur(15px);
+			filter: blur(30rpx);
 		}
 		.img {
 			position: absolute;
@@ -116,10 +116,10 @@ export default {
 			text-align: center;
 			color: #fff;
 			.title {
-				font-size: 20px;
+				font-size: 40rpx;
 			}
 			.author {
-				font-size: 14px;
+				font-size: 28rpx;
 			}
 		}
 	}
