@@ -1,7 +1,6 @@
 ﻿<template>
   <div>
     <BookInfo :info='info'></BookInfo>
-    <CommentList :comments='comments'></CommentList>
     <div class='comment' v-if='showAdd'>
       <!-- [textarea](https://developers.weixin.qq.com/miniprogram/dev/component/textarea.html) -->
       <textarea
@@ -11,9 +10,6 @@
         :maxlength='100'
 			>
       </textarea>
-      <button class='btn' @click='addComment'>
-        评论
-      </button>
     </div>
     <div class='text-footer' v-else>
       未登录或者已经评论过啦
@@ -24,14 +20,12 @@
 </template>
 
 <script>
-import { get, post, showModal } from '@/util'
+import { get } from '@/util'
 import BookInfo from '@/components/BookInfo'
-import CommentList from '@/components/CommentList'
 
 export default {
 	components: {
-		BookInfo,
-		CommentList
+		BookInfo
 	},
 	data() {
 		return {
@@ -61,7 +55,6 @@ export default {
 		/* [this.$root.$mp.query.id](http://mpvue.com/mpvue/#_18) */
 		this.bookid = this.$root.$mp.query.id
 		this.getDetail()
-		this.getComments()
 		/* [getStorageSync](https://developers.weixin.qq.com/miniprogram/dev/api/storage/wx.getStorageSync.html) */
 		const userInfo = wx.getStorageSync('userInfo')
 		if (userInfo) {
@@ -76,27 +69,6 @@ export default {
 				title: info.title
 			})
 			this.info = info
-		},
-		async addComment() {
-			if (!this.comment) {
-				return
-			}
-			const data = {
-				openid: this.userInfo.openId,
-				bookid: this.bookid,
-				comment: this.comment
-			}
-			try {
-				await post('/weapp/addcomment', data)
-				this.comment = ''
-				this.getComments()
-			} catch (e) {
-				showModal('失败', e.msg)
-			}
-		},
-		async getComments() {
-			const comments = await get('/weapp/commentlist', { bookid: this.bookid })
-			this.comments = comments.list || []
 		}
 	}
 }
