@@ -2,6 +2,10 @@
 
 > 面试作品 - 图书管理
 
+## appid
+
+* wxabcaad13aeed9229
+
 ## static
 
 > 图书扫码用到的二维码
@@ -53,3 +57,17 @@ npm install sass-loader node-sass -D
 ## 图书详情页
 
 * **components/BookInfo.vue**
+
+## 评论
+
+## 上线
+
+* [Development Environment request Domain Name](https://qod21e5e.qcloud.la)
+ **config.js**
+* **server/config.js**
+* 微信工具 -> 上传测试代码 -> 除'智能上传'全打钩,登录小程序管理后台 - 开发管理 - 开发版本 就可以找到刚提交上传的版本了
+* [操作](https://console.cloud.tencent.com/lav2/dev)
+* ganehank.xyz
+* Gan Yi Huan
+* 黄阁镇莲溪村新丰南街32号101房
+* imoocinterview.xyz

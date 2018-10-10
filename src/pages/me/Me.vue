@@ -174,12 +174,12 @@ export default {
 		}
 	}
   .phone {
-		margin-top: 10px;
-		padding: 5px 10px;
+		margin-top: 20rpx;
+		padding: 10rpx 20rpx;
 	}
   .location {
-		margin-top: 10px;
-		padding: 5px 10px;
+		margin-top: 20rpx;
+		padding: 10rpx 20rpx;
 	}
 }
 </style>
