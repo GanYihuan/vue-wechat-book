@@ -1,19 +1,6 @@
 ﻿<template>
   <div>
     <BookInfo :info='info'></BookInfo>
-    <div class='comment' v-if='showAdd'>
-      <!-- [textarea](https://developers.weixin.qq.com/miniprogram/dev/component/textarea.html) -->
-      <textarea
-        class='textarea'
-        v-model='comment'
-        placeholder='请输入图书短评'
-        :maxlength='100'
-			>
-      </textarea>
-    </div>
-    <div class='text-footer' v-else>
-      未登录或者已经评论过啦
-    </div>
     <!-- [button](https://developers.weixin.qq.com/miniprogram/dev/component/button.html) -->
     <button class='btn' open-type='share'>转发给好友</button>
   </div>
@@ -34,20 +21,6 @@ export default {
 			comment: '',
 			bookid: '',
 			info: {}
-		}
-	},
-	computed: {
-		/* 是否显示添加的表单 */
-		showAdd() {
-			/* 没登录 */
-			if (!this.userInfo.openId) {
-				return false
-			}
-			/* 评论页面里查到有自己的 openid */
-			if (this.comments.filter(v => v.openid === this.userInfo.openId).length) {
-				return false
-			}
-			return true
 		}
 	},
 	mounted() {
