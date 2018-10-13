@@ -69,3 +69,6 @@ npm install sass-loader node-sass -D
 * [操作](https://console.cloud.tencent.com/lav2/dev)
 * ganehank.xyz
 * imoocinterview.xyz
+* MyAdmin user [生产环境](https://console.qcloud.com/lav2/production) root pass: Wedj8ysb
+* mysql: `use cAuth;` `show create table books;` `show create table comments;`
+* MyAdmin create database, copy mysql iTerm command
