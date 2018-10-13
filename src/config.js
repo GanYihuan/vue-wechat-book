@@ -3,7 +3,6 @@
 const host = 'http://localhost:5757'
 /* 上线环境部署 */
 // const host = 'https://qod21e5e.qcloud.la'
-// const host = 'https://906012892.imoocinterview.xyz'
 const config = {
   host,
   loginUrl: `${host}/weapp/login`,

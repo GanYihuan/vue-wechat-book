@@ -78,3 +78,4 @@ npm install sass-loader node-sass -D
 * MyAdmin user [生产环境](https://console.qcloud.com/lav2/production) root pass: Wedj8ysb
 * mysql: `use cAuth;` `show create table books;` `show create table comments;`
 * MyAdmin create database, copy mysql iTerm command
+* localhost, iTerm: `nslookup  localhost`

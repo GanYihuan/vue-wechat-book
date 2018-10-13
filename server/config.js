@@ -42,6 +42,8 @@ const CONF = {
     // --- 上线部署 start ---
     // [AppID(小程序ID)](https://mp.weixin.qq.com/wxopen/devprofile?action=get_profile&token=1921737503&lang=zh_CN)
     // pass: 'wxabcaad13aeed9229',
+    /* 生产环境 pass, MyAdmin pass */
+    // pass: 'Wedj8ysb',
     // --- 上线部署 end ---
     char: 'utf8mb4'
   },
