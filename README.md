@@ -2,6 +2,12 @@
 
 > 面试作品 - 图书管理
 
+## 启动方式
+
+* 开启MySQL `mysql.server start`
+* `cd server` `nvm use 10.0.0` `npm run dev`
+* `cd net-book` `npm run dev`
+
 ## appid
 
 * wxabcaad13aeed9229
