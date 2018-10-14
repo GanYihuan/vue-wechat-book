@@ -2,6 +2,7 @@
   "pages": [
     "pages/me/main",
     "pages/search/main",
+    "pages/searchPanel/main",
     "pages/books/main",
     "pages/detail/main"
   ],

@@ -1,10 +1,12 @@
 ﻿<template>
   <div class="search">
     <div class="header">
-      <div class="box">
-        <image class="header-img" src="../../../static/img/search.png" />
-        <p>搜索书籍</p>
-      </div>
+      <a :href="searchPanel">
+        <div class="box">
+          <image class="header-img" src="../../../static/img/search.png" />
+          <p>搜索书籍</p>
+        </div>
+      </a>
     </div>
     <div class="sub-container">
       <image class="head-img" src="../../../static/img/quality.png"/>
@@ -28,6 +30,11 @@ export default {
 			books: [],
 			page: 0,
 			more: true
+		}
+	},
+	computed: {
+		searchPanel() {
+			return '/pages/searchPanel/main'
 		}
 	},
 	mounted() {
@@ -80,7 +87,7 @@ export default {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-  width: 100%;
+	width: 100%;
 
 	.header {
 		display: flex;
@@ -88,14 +95,14 @@ export default {
 		justify-content: center;
 		align-items: center;
 		z-index: 99;
-    position: fixed;
-    top: 0;
+		position: fixed;
+		top: 0;
 		box-shadow: 0 0 6rpx 0 #e3e3e3;
 		border-top: 2rpx solid #f5f5f5;
 		border-bottom: 2rpx solid #f5f5f5;
 		width: 100%;
-    height: 100rpx;
-    background-color: #fff;
+		height: 100rpx;
+		background-color: #fff;
 
 		.box {
 			display: flex;
