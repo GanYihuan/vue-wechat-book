@@ -1,8 +1,9 @@
 {
   "pages": [
+    "pages/me/main",
+    "pages/search/main",
     "pages/books/main",
-    "pages/detail/main",
-    "pages/me/main"
+    "pages/detail/main"
   ],
   "window": {
     "enablePullDownRefresh": true,
@@ -19,6 +20,12 @@
         "text": "图书",
         "iconPath": "static/img/book.png",
         "selectedIconPath": "static/img/book-active.png"
+      },
+      {
+        "pagePath": "pages/search/main",
+        "text": "搜索",
+        "iconPath": "static/img/todo.png",
+        "selectedIconPath": "static/img/todo-active.png"
       },
       {
         "pagePath": "pages/me/main",
