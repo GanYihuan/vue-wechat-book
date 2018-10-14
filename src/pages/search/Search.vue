@@ -14,6 +14,9 @@
         <SingleBook v-for='book in books' :key='book.id' :book='book'></SingleBook>
       </div>
     </div>
+    <p class='text-footer' v-if='!more'>
+      没有更多数据!
+    </p>
   </div>
 </template>
 

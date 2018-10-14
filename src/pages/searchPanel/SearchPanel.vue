@@ -29,7 +29,7 @@
     </div>
     <div class="books-container">
     </div>
-    <p class="empty-tip">没有搜索到书籍</p>
+    <p class="empty-tip" v-if='noResult'>没有搜索到书籍</p>
   </div>
 </template>
 
@@ -43,28 +43,27 @@ export default {
 	data() {
 		return {
 			val: '',
-			historyKeys: [],
       key: 'q',
-      max: 3,
-      keywords: []
+      max: 10,
+      keywords: [],
+      noResult: false
 		}
 	},
-	attached: function() {
-		this.setData({
-			historyKeys: this.getHistory()
-		})
+	onShow() {
+		this.keywords = this.getHistory()
 	},
 	methods: {
 		del() {
 			this.val = ''
 		},
 		getHistory() {
-			var keywords = wx.getStorageSync(this.key)
+      let keywords = wx.getStorageSync(this.key)
+      console.log('getHistory keywords: ' + keywords)
 			return keywords
 		},
 		confirm() {
-			// console.log(this.val)
-			let query = this.val
+      let query = this.val
+			console.log('comfirm query: ' + this.val)
 			let keywords = this.getHistory()
 			if (keywords) {
 				let index = keywords.indexOf(query)
@@ -74,14 +73,14 @@ export default {
 						keywords.pop(query)
 					}
 					keywords.unshift(query)
-				}
+        }
 				wx.setStorageSync(this.key, keywords)
 			} else {
 				keywords = [query]
 				wx.setStorageSync(this.key, keywords)
       }
       this.keywords = keywords
-      console.log('keyword3: ' + this.keywords)
+      console.log('confirm after keyword: ' + this.keywords)
 		}
 	}
 }
@@ -183,10 +182,6 @@ export default {
 		margin-top: 100rpx;
 		padding: 0 90rpx 0 90rpx;
 		width: 570rpx;
-
-		book-cmp {
-			margin-bottom: 25rpx;
-		}
 	}
 
 	.empty-tip {
@@ -194,30 +189,8 @@ export default {
 		position: absolute;
 		top: 50%;
 		width: 100%;
-		text-align: center;
+    text-align: center;
+    color: #ea5149;
 	}
-}
-
-.loading {
-	margin: 50rpx 0 50rpx 0;
-}
-
-.loading-center {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-}
-
-.in-bar {
-	color: #999;
-}
-
-.tags tag-cmp {
-	margin-right: 20rpx;
-	margin-bottom: 20rpx;
-}
-
-.test {
-	background-color: #000;
 }
 </style>

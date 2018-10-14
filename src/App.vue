@@ -8,9 +8,10 @@ export default {
 
 <style>
 .text-footer {
-	margin-bottom: 10rpx;
+	margin: 50rpx 0;
 	text-align: center;
-	font-size: 24rpx;
+  font-size: 24rpx;
+  color: #ea5149;
 }
 .text-primary {
 	color: #ea5149;
