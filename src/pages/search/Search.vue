@@ -21,6 +21,8 @@
 </template>
 
 <script>
+/* vuex grammer suger */
+import { mapGetters } from 'vuex'
 import { get } from '@/util'
 import SingleBook from '@/components/SingleBook'
 
@@ -30,18 +32,20 @@ export default {
 	},
 	data() {
 		return {
-			books: [],
+			// books: [],
 			page: 0,
 			more: true
 		}
 	},
 	computed: {
+    /* books: vuex/getters.js */
+    ...mapGetters(['books']),
 		searchPanel() {
 			return '/pages/searchPanel/main'
 		}
 	},
 	mounted() {
-		this.getList(true)
+		// this.getList(true)
 	},
 	onShow() {
 		/* [设置 title](https://developers.weixin.qq.com/miniprogram/dev/api/ui/navigation-bar/wx.setNavigationBarTitle.html) */
@@ -54,7 +58,7 @@ export default {
 	/* [refresh](https://developers.weixin.qq.com/miniprogram/dev/framework/config.html#%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE) */
 	onPullDownRefresh() {
 		console.log('下拉')
-		this.getList(true)
+		// this.getList(true)
 	},
 	/* 微信生命周期 */
 	onReachBottom() {
@@ -63,7 +67,7 @@ export default {
 			return false
 		}
 		this.page = this.page + 1
-		this.getList()
+		// this.getList()
 	},
 	methods: {
 		async getList(init) {

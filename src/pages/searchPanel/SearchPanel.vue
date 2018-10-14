@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import { get } from '@/util'
 import Tag from '@/components/Tag'
 import SingleBook from '@/components/SingleBook'
 

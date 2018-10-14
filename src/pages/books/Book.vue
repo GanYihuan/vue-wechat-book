@@ -9,6 +9,8 @@
 </template>
 
 <script>
+/* vuex grammer suger */
+import { mapMutations } from 'vuex'
 import { get } from '@/util'
 import Pic from '@/components/Pic'
 import TopSwiper from '@/components/TopSwiper'
@@ -48,6 +50,11 @@ export default {
 		this.getList()
 	},
 	methods: {
+    /* invoked vuex/mutations */
+		...mapMutations({
+      /* SET_BOOKS: vuex/mutation-type */
+			setBooks: 'SET_BOOKS'
+		}),
 		async getList(init) {
 			if (init) {
 				this.page = 0
@@ -61,13 +68,19 @@ export default {
 				console.log('没有更多数据', this.more)
 			}
 			if (init) {
-				this.books = books.list
+        this.books = books.list
+        /* this.setSinger: ...mapMutations */
+        /* Save data to vuex/state */
+        this.setBooks(this.books)
 				wx.stopPullDownRefresh()
 			} else {
 				/* 下拉刷新, 不能直接覆盖 books 而是累加 */
-				this.books = this.books.concat(books.list)
+        this.books = this.books.concat(books.list)
+        /* this.setSinger: ...mapMutations */
+        /* Save data to vuex/state */
+        this.setBooks(this.books)
 			}
-			wx.hideNavigationBarLoading()
+      wx.hideNavigationBarLoading()
 		},
 		/* 获取排行榜 */
 		async getTop() {
