@@ -9,13 +9,13 @@
       </a>
     </div>
     <div class="sub-container">
-      <image class="head-img" src="../../../static/img/quality.png"/>
+      <image class="head-img" src="../../../static/img/quality.png" v-if='hasBook' />
       <div class="books-container">
         <SingleBook v-for='book in books' :key='book.id' :book='book'></SingleBook>
       </div>
     </div>
-    <p class='text-footer' v-if='!more'>
-      没有更多数据!
+    <p class='text-footer' v-if='!hasBook'>
+      请去登录界面扫码添加图书！
     </p>
   </div>
 </template>
@@ -23,7 +23,6 @@
 <script>
 /* vuex grammer suger */
 import { mapGetters } from 'vuex'
-import { get } from '@/util'
 import SingleBook from '@/components/SingleBook'
 
 export default {
@@ -34,7 +33,7 @@ export default {
 		return {
 			// books: [],
 			page: 0,
-			more: true
+			hasBook: false
 		}
 	},
 	computed: {
@@ -43,9 +42,6 @@ export default {
 		searchPanel() {
 			return '/pages/searchPanel/main'
 		}
-	},
-	mounted() {
-		// this.getList(true)
 	},
 	onShow() {
 		/* [设置 title](https://developers.weixin.qq.com/miniprogram/dev/api/ui/navigation-bar/wx.setNavigationBarTitle.html) */
@@ -58,7 +54,6 @@ export default {
 	/* [refresh](https://developers.weixin.qq.com/miniprogram/dev/framework/config.html#%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE) */
 	onPullDownRefresh() {
 		console.log('下拉')
-		// this.getList(true)
 	},
 	/* 微信生命周期 */
 	onReachBottom() {
@@ -67,30 +62,6 @@ export default {
 			return false
 		}
 		this.page = this.page + 1
-		// this.getList()
-	},
-	methods: {
-		async getList(init) {
-			if (init) {
-				this.page = 0
-				this.more = true
-			}
-			/* [showNavigationBarLoading](https://developers.weixin.qq.com/miniprogram/dev/api/ui/navigation-bar/wx.showNavigationBarLoading.html) */
-			wx.showNavigationBarLoading()
-			const books = await get('/weapp/booklist', { page: this.page })
-			if (books.list.length < 3 && this.page > 0) {
-				this.more = false
-				console.log('没有更多数据', this.more)
-			}
-			if (init) {
-				this.books = books.list
-				wx.stopPullDownRefresh()
-			} else {
-				/* 下拉刷新, 不能直接覆盖 books 而是累加 */
-				this.books = this.books.concat(books.list)
-			}
-			wx.hideNavigationBarLoading()
-		}
 	}
 }
 </script>
@@ -141,7 +112,7 @@ export default {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		margin-top: 100rpx;
+		margin: 100rpx 0;
 		background-color: #f5f5f5;
 
 		.head-img {
@@ -157,10 +128,6 @@ export default {
 			flex-wrap: wrap;
 			margin-top: 10rpx;
 			padding: 0 90rpx;
-
-			book-cmp {
-				margin-bottom: 30rpx;
-			}
 		}
 	}
 }
