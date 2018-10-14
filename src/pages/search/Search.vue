@@ -43,6 +43,12 @@ export default {
 	mounted() {
 		this.getList(true)
 	},
+	onShow() {
+		/* [设置 title](https://developers.weixin.qq.com/miniprogram/dev/api/ui/navigation-bar/wx.setNavigationBarTitle.html) */
+		wx.setNavigationBarTitle({
+			title: '搜索图书'
+		})
+	},
 	/* 微信生命周期 */
 	/* app.json */
 	/* [refresh](https://developers.weixin.qq.com/miniprogram/dev/framework/config.html#%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE) */

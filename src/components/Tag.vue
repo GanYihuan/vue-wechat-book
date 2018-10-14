@@ -21,11 +21,11 @@ export default {
 	justify-content: center;
 	align-items: center;
 	display: inline-flex;
-	padding: 4rpx 12rpx;
+	padding: 10rpx;
 	margin: 10rpx;
-	border-radius: 4rpx;
+	border: 1rpx #ea5a49 solid;
+	border-radius: 20rpx;
 	font-size: 28rpx;
-	color: #666;
-	background-color: #f5f5f5;
+	color: #ea5a49;
 }
 </style>

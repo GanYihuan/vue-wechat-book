@@ -3,7 +3,7 @@
     <div class="header">
       <div class="search-container">
         <image class="icon" src="../../../static/img/search.png" />
-        <input class="bar" placeholder="书籍名称" v-model="val" @confirm="confirm"/>
+        <input class="bar" placeholder="书籍名称" v-model="val" @confirm="onConfirm" />
         <image class="cancel-img" src="../../../static/img/cancel.png" @click="del" />
       </div>
     </div>
@@ -17,28 +17,22 @@
           <Tag v-for="(keyword, index) in keywords" :key="index" :keyword="keyword"></Tag>
         </div>
       </div>
-      <div class="history hot-search">
-        <div class="title">
-          <div class="chunk"></div>
-          <div>热门搜索</div>
-        </div>
-        <div class="tags">
-          <Tag></Tag>
-        </div>
-      </div>
     </div>
-    <div class="books-container">
+    <div class="books-container" v-if="showResult">
+      <SingleBook></SingleBook>
     </div>
-    <p class="empty-tip" v-if='noResult'>没有搜索到书籍</p>
+    <p class="empty-tip" v-if="noResult">没有搜索到书籍</p>
   </div>
 </template>
 
 <script>
 import Tag from '@/components/Tag'
+import SingleBook from '@/components/SingleBook'
 
 export default {
 	components: {
-		Tag
+    Tag,
+    SingleBook
 	},
 	data() {
 		return {
@@ -46,11 +40,20 @@ export default {
       key: 'q',
       max: 10,
       keywords: [],
-      noResult: false
+      noResult: false,
+      showResult: false,
+      searchResult: [],
+      books: [],
+			page: 0,
+			more: true
 		}
 	},
 	onShow() {
-		this.keywords = this.getHistory()
+    this.keywords = this.getHistory()
+    /* [设置 title](https://developers.weixin.qq.com/miniprogram/dev/api/ui/navigation-bar/wx.setNavigationBarTitle.html) */
+		wx.setNavigationBarTitle({
+			title: '搜索图书'
+		})
 	},
 	methods: {
 		del() {
@@ -61,7 +64,7 @@ export default {
       console.log('getHistory keywords: ' + keywords)
 			return keywords
 		},
-		confirm() {
+		onConfirm() {
       let query = this.val
 			console.log('comfirm query: ' + this.val)
 			let keywords = this.getHistory()
@@ -81,6 +84,30 @@ export default {
       }
       this.keywords = keywords
       console.log('confirm after keyword: ' + this.keywords)
+      this.val = ''
+      /* 查出所有图书, 带查询书名 query, 只显示 query 结果 */
+      this.getList(true, query)
+    },
+    async getList(init, query) {
+			if (init) {
+				this.page = 0
+				this.more = true
+			}
+			/* [showNavigationBarLoading](https://developers.weixin.qq.com/miniprogram/dev/api/ui/navigation-bar/wx.showNavigationBarLoading.html) */
+			wx.showNavigationBarLoading()
+			const books = await get('/weapp/booklist', { page: this.page, singleTitle: query })
+			if (books.list.length < 3 && this.page > 0) {
+				this.more = false
+				console.log('没有更多数据', this.more)
+			}
+			if (init) {
+				this.books = books.list
+				wx.stopPullDownRefresh()
+			} else {
+				/* 下拉刷新, 不能直接覆盖 books 而是累加 */
+				this.books = this.books.concat(books.list)
+			}
+			wx.hideNavigationBarLoading()
 		}
 	}
 }
@@ -168,10 +195,6 @@ export default {
 			padding-left: 30rpx;
 			width: 630rpx;
 		}
-	}
-
-	.hot-search {
-		margin-top: 70rpx;
 	}
 
 	.books-container {

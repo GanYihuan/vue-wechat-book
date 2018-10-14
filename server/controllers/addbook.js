@@ -41,7 +41,7 @@ module.exports = async ctx => {
       })
       .join(',')
     const author = bookinfo.author.join(',')
-    console.log({
+    console.log('title!!!: ', {
       rate,
       title,
       image,

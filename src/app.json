@@ -30,7 +30,7 @@
       },
       {
         "pagePath": "pages/me/main",
-        "text": "我",
+        "text": "登录",
         "iconPath": "static/img/me.png",
         "selectedIconPath": "static/img/me-active.png"
       }

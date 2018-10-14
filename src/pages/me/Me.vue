@@ -58,6 +58,10 @@ export default {
 		if (userInfo) {
 			this.userInfo = userInfo
 		}
+    /* [设置 title](https://developers.weixin.qq.com/miniprogram/dev/api/ui/navigation-bar/wx.setNavigationBarTitle.html) */
+		wx.setNavigationBarTitle({
+			title: '登录'
+		})
 	},
 	methods: {
 		scanBook() {
