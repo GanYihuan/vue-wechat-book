@@ -8,37 +8,32 @@
         </div>
       </a>
     </div>
-    <div class="sub-container">
-      <image class="head-img" src="../../../static/img/quality.png" v-if='hasBook' />
+    <div class="sub-container" v-if='hasBooks'>
+      <image class="head-img" src="../../../static/img/quality.png" />
       <div class="books-container">
         <SingleBook v-for='book in books' :key='book.id' :book='book'></SingleBook>
       </div>
     </div>
-    <p class='text-footer' v-if='!hasBook'>
+    <div class='text-footer footer' v-else>
       请去登录界面扫码添加图书！
-    </p>
+    </div>
   </div>
 </template>
 
 <script>
 /* vuex grammer suger */
-import { mapGetters } from 'vuex'
+// import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 import SingleBook from '@/components/SingleBook'
 
 export default {
 	components: {
 		SingleBook
 	},
-	data() {
-		return {
-			// books: [],
-			page: 0,
-			hasBook: false
-		}
-	},
 	computed: {
-    /* books: vuex/getters.js */
-    ...mapGetters(['books']),
+		/* books: vuex/getters.js */
+		// ...mapGetters(['books']),
+    ...mapState(['books', 'hasBooks']),
 		searchPanel() {
 			return '/pages/searchPanel/main'
 		}
@@ -47,21 +42,7 @@ export default {
 		/* [设置 title](https://developers.weixin.qq.com/miniprogram/dev/api/ui/navigation-bar/wx.setNavigationBarTitle.html) */
 		wx.setNavigationBarTitle({
 			title: '搜索图书'
-		})
-	},
-	/* 微信生命周期 */
-	/* app.json */
-	/* [refresh](https://developers.weixin.qq.com/miniprogram/dev/framework/config.html#%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE) */
-	onPullDownRefresh() {
-		console.log('下拉')
-	},
-	/* 微信生命周期 */
-	onReachBottom() {
-		if (!this.more) {
-			/* 没有更多了 */
-			return false
-		}
-		this.page = this.page + 1
+    })
 	}
 }
 </script>
@@ -129,6 +110,12 @@ export default {
 			margin-top: 10rpx;
 			padding: 0 90rpx;
 		}
+	}
+
+	.footer {
+		position: absolute;
+		bottom: 100rpx;
+		color: #ea5a49;
 	}
 }
 </style>

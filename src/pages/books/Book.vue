@@ -50,10 +50,11 @@ export default {
 		this.getList()
 	},
 	methods: {
-    /* invoked vuex/mutations */
+		/* invoked vuex/mutations */
 		...mapMutations({
-      /* SET_BOOKS: vuex/mutation-type */
-			setBooks: 'SET_BOOKS'
+			/* SET_BOOKS: vuex/mutation-type */
+			setBooks: 'SET_BOOKS',
+			hasBooks: 'HAS_BOOKS'
 		}),
 		async getList(init) {
 			if (init) {
@@ -62,25 +63,28 @@ export default {
 			}
 			/* [showNavigationBarLoading](https://developers.weixin.qq.com/miniprogram/dev/api/ui/navigation-bar/wx.showNavigationBarLoading.html) */
 			wx.showNavigationBarLoading()
+      let hasBooks = true
 			const books = await get('/weapp/booklist', { page: this.page })
 			if (books.list.length < 3 && this.page > 0) {
 				this.more = false
 				console.log('没有更多数据', this.more)
 			}
 			if (init) {
-        this.books = books.list
-        /* this.setSinger: ...mapMutations */
-        /* Save data to vuex/state */
+				this.books = books.list
+				/* this.setSinger: ...mapMutations */
+				/* Save data to vuex/state */
         this.setBooks(this.books)
+				this.hasBooks(hasBooks)
 				wx.stopPullDownRefresh()
 			} else {
 				/* 下拉刷新, 不能直接覆盖 books 而是累加 */
-        this.books = this.books.concat(books.list)
-        /* this.setSinger: ...mapMutations */
-        /* Save data to vuex/state */
-        this.setBooks(this.books)
+				this.books = this.books.concat(books.list)
+				/* this.setSinger: ...mapMutations */
+				/* Save data to vuex/state */
+				this.setBooks(this.books)
+				this.hasBooks(hasBooks)
 			}
-      wx.hideNavigationBarLoading()
+			wx.hideNavigationBarLoading()
 		},
 		/* 获取排行榜 */
 		async getTop() {
