@@ -70,7 +70,7 @@ export default {
 				console.log('没有更多数据', this.more)
 			}
 			if (init) {
-				this.books = books.list
+        this.books = books.list
 				/* this.setSinger: ...mapMutations */
 				/* Save data to vuex/state */
         this.setBooks(this.books)
@@ -82,7 +82,7 @@ export default {
 				/* this.setSinger: ...mapMutations */
 				/* Save data to vuex/state */
 				this.setBooks(this.books)
-				this.hasBooks(hasBooks)
+        this.hasBooks(hasBooks)
 			}
 			wx.hideNavigationBarLoading()
 		},

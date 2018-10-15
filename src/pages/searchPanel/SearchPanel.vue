@@ -26,47 +26,53 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { get } from '@/util'
 import Tag from '@/components/Tag'
 import SingleBook from '@/components/SingleBook'
 
 export default {
 	components: {
-    Tag,
-    SingleBook
+		Tag,
+		SingleBook
 	},
 	data() {
 		return {
 			val: '',
-      key: 'q',
-      max: 10,
-      keywords: [],
-      noResult: false,
-      showResult: false,
-      searchResult: [],
-      books: [],
+			key: 'q',
+			max: 10,
+			keywords: [],
+			noResult: false,
+			showResult: false,
+			searchResult: [],
+			searchBooks: [],
 			page: 0,
-			more: true
+      more: true,
+      booksTitle: []
 		}
 	},
 	onShow() {
-    this.keywords = this.getHistory()
-    /* [设置 title](https://developers.weixin.qq.com/miniprogram/dev/api/ui/navigation-bar/wx.setNavigationBarTitle.html) */
+		this.keywords = this.getHistory()
+		/* [设置 title](https://developers.weixin.qq.com/miniprogram/dev/api/ui/navigation-bar/wx.setNavigationBarTitle.html) */
 		wx.setNavigationBarTitle({
 			title: '搜索图书'
 		})
+	},
+	computed: {
+		// ...mapState(['books']),
+		...mapGetters(['books'])
 	},
 	methods: {
 		del() {
 			this.val = ''
 		},
 		getHistory() {
-      let keywords = wx.getStorageSync(this.key)
-      console.log('getHistory keywords: ' + keywords)
+			let keywords = wx.getStorageSync(this.key)
+			console.log('getHistory keywords: ' + keywords)
 			return keywords
 		},
 		onConfirm() {
-      let query = this.val
+			let query = this.val
 			console.log('comfirm query: ' + this.val)
 			let keywords = this.getHistory()
 			if (keywords) {
@@ -77,26 +83,43 @@ export default {
 						keywords.pop(query)
 					}
 					keywords.unshift(query)
-        }
+				}
 				wx.setStorageSync(this.key, keywords)
 			} else {
 				keywords = [query]
 				wx.setStorageSync(this.key, keywords)
-      }
-      this.keywords = keywords
-      console.log('confirm after keyword: ' + this.keywords)
-      this.val = ''
-      /* 查出所有图书, 带查询书名 query, 只显示 query 结果 */
-      this.getList(true, query)
-    },
-    async getList(init, query) {
+			}
+			this.keywords = keywords
+			console.log('confirm after keyword: ' + this.keywords)
+			this.val = ''
+			/* 查出所有图书, 带查询书名 query, 只显示 query 结果 */
+			// this.getList(true, query)
+			console.log('books: ' + this.books)
+			this.getBookTitle()
+		},
+		getBookTitle() {
+			let res = this.books
+			let searchBook = res.slice()
+			let booksLength = searchBook.length
+			console.log(searchBook)
+			console.log(searchBook.length)
+			for (let i = 0; i < booksLength; i++) {
+        console.log('singleBook Title: ' + searchBook[i].title)
+        this.booksTitle = this.booksTitle.concat(searchBook[i].title)
+			}
+      console.log('booksTitle: ' + this.booksTitle)
+		},
+		async getList(init, query) {
 			if (init) {
 				this.page = 0
 				this.more = true
 			}
 			/* [showNavigationBarLoading](https://developers.weixin.qq.com/miniprogram/dev/api/ui/navigation-bar/wx.showNavigationBarLoading.html) */
 			wx.showNavigationBarLoading()
-			const books = await get('/weapp/booklist', { page: this.page, singleTitle: query })
+			const books = await get('/weapp/booklist', {
+				page: this.page,
+				singleTitle: query
+			})
 			if (books.list.length < 3 && this.page > 0) {
 				this.more = false
 				console.log('没有更多数据', this.more)
@@ -213,8 +236,8 @@ export default {
 		position: absolute;
 		top: 50%;
 		width: 100%;
-    text-align: center;
-    color: #ea5149;
+		text-align: center;
+		color: #ea5149;
 	}
 }
 </style>

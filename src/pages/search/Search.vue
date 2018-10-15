@@ -22,8 +22,8 @@
 
 <script>
 /* vuex grammer suger */
-// import { mapGetters } from 'vuex'
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
+// import { mapState } from 'vuex'
 import SingleBook from '@/components/SingleBook'
 
 export default {
@@ -32,8 +32,8 @@ export default {
 	},
 	computed: {
 		/* books: vuex/getters.js */
-		// ...mapGetters(['books']),
-    ...mapState(['books', 'hasBooks']),
+		...mapGetters(['books', 'hasBooks']),
+    // ...mapState(['books', 'hasBooks']),
 		searchPanel() {
 			return '/pages/searchPanel/main'
 		}
