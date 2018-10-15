@@ -25,6 +25,12 @@ nvm install 10.0.0
 nvm use 10.0.0
 ```
 
+> 将vuex中的数据持久化到本地 [使用vuex-persistedstate](https://github.com/robinvdvleuten/vuex-persistedstate)
+
+```console
+npm install vuex-persistedstate
+```
+
 ## 用户中心登录界面
 
 * 小程序客户端腾讯云增强 SDK, 会话服务 [获取用户信息 wafer2-client-sdk](https://github.com/tencentyun/wafer-client-sdk/)

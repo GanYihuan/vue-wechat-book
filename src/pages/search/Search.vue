@@ -3,7 +3,7 @@
     <div class="header">
       <a :href="searchPanel">
         <div class="box">
-          <image class="header-img" src="../../../static/img/search.png" />
+          <img class="header-img" src="../../../static/img/search.png" />
           <p>搜索书籍</p>
         </div>
       </a>
@@ -80,7 +80,7 @@ export default {
 			color: #999;
 			background-color: #f5f5f5;
 
-			image {
+			.header-img {
 				margin-right: 20rpx;
 				margin-bottom: -4rpx;
 				width: 28rpx;

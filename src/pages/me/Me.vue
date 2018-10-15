@@ -1,5 +1,5 @@
 ﻿<template>
-  <div class='container'>
+  <div class='me'>
     <div class='userInfo'>
       <img :src='userInfo.avatarUrl' alt='用户微信头像'>
       <p>{{userInfo.nickName}}</p>
@@ -165,25 +165,33 @@ export default {
 </script>
 
 <style lang='scss'>
-.container {
-	padding: 0 30rpx;
+.me {
+  padding: 0 30rpx;
+
 	.userInfo {
 		margin-top: 100rpx;
-		text-align: center;
+    text-align: center;
+
 		img {
 			margin: 20rpx;
 			border-radius: 50%;
 			width: 150rpx;
 			height: 150rpx;
 		}
-	}
+  }
+
   .phone {
-		margin-top: 20rpx;
+		margin: 20rpx 0 0 0;
 		padding: 10rpx 20rpx;
-	}
+  }
+
   .location {
-		margin-top: 20rpx;
+		margin: 20rpx 0 0 0;
 		padding: 10rpx 20rpx;
-	}
+  }
+
+  .btn {
+    border-radius: 100rpx;
+  }
 }
 </style>
