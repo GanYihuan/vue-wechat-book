@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="books-container" v-if="showResult">
-      <SingleBook></SingleBook>
+      <SingleBook v-for='book in searchResult' :key='book.id' :book='book'></SingleBook>
     </div>
     <p class="empty-tip" v-if="noResult">没有搜索到书籍</p>
   </div>
@@ -47,8 +47,8 @@ export default {
 			searchResult: [],
 			searchBooks: [],
 			page: 0,
-      more: true,
-      booksTitle: []
+			more: true,
+			booksTitle: []
 		}
 	},
 	onShow() {
@@ -95,19 +95,58 @@ export default {
 			/* 查出所有图书, 带查询书名 query, 只显示 query 结果 */
 			// this.getList(true, query)
 			console.log('books: ' + this.books)
-			this.getBookTitle()
+			// this.getBookTitle()
+			// for (let i = 0; i < this.booksTitle.length; i++) {
+			// 	let oneBook = this.booksTitle[i]
+			// 	console.log('转成字符串的书名: ' + JSON.stringify(oneBook))
+			// 	console.log('!!' + oneBook.indexOf(query))
+			// 	if (oneBook.indexOf(query) === 0) {
+			// 		this.searchBooks.push(oneBook)
+			// 	} else {
+			// 		console.log('最终结果: ')
+			//   }
+			//   console.log('最终结果: ' + this.searchBooks)
+			// }
+
+			/*
+      搜索结果 query
+      查找出 query 位于 books 的位置
+      books 删除 (query 所在位置以外内容) || 获取 query 所在位置内容, 构建成新 new books, 传递给 SingleBook.vue
+      */
+			// 原始 books
+			let res = this.books
+			// 目标 books: [{},{},{}...]
+			let searchBook = res.slice()
+			console.log(searchBook)
+			for (let i = 0; i < searchBook.length; i++) {
+				let itemTitle = searchBook[i].title
+				if (itemTitle.search(query) === 0) {
+          console.log(i)
+          this.searchResult.push(searchBook[i])
+          console.log('searchResult: ' + this.searchResult)
+          this.showResult = true
+				}
+			}
 		},
 		getBookTitle() {
+			/*
+      搜索结果 query
+      查找出 query 位于 books 的位置
+      books 删除 (query 所在位置以外内容) || 获取 query 所在位置内容, 构建成新 new books, 传递给 SingleBook.vue
+      */
+			// 原始 books
 			let res = this.books
+			// 目标 books: [{},{},{}...]
 			let searchBook = res.slice()
-			let booksLength = searchBook.length
 			console.log(searchBook)
-			console.log(searchBook.length)
-			for (let i = 0; i < booksLength; i++) {
-        console.log('singleBook Title: ' + searchBook[i].title)
-        this.booksTitle = this.booksTitle.concat(searchBook[i].title)
-			}
-      console.log('booksTitle: ' + this.booksTitle)
+			// console.log('上面: ' + searchBook.length)
+			// for (let i = 0; i < booksLength; i++) {
+			// 	console.log('singleBook Title: ' + searchBook[i].title)
+			// 	this.booksTitle = this.booksTitle.concat(searchBook[i].title)
+			// 	let targetNum = searchBook.indexOf(searchBook[i].title)
+			// 	console.log('targetNum: ' + targetNum)
+			// }
+			// console.log('booksTitle: ' + this.booksTitle)
 		},
 		async getList(init, query) {
 			if (init) {
