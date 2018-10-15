@@ -7,19 +7,23 @@
         <image class="cancel-img" src="../../../static/img/cancel.png" @click="del" />
       </div>
     </div>
-    <div>
-      <div class="history">
-        <div class="title">
-          <div class="chunk"></div>
-          <p>历史搜索</p>
-        </div>
-        <div class="tags">
-          <Tag v-for="(keyword, index) in keywords" :key="index" :keyword="keyword"></Tag>
-        </div>
+    <div class="history">
+      <div class="title">
+        <div class="chunk"></div>
+        <p>历史搜索</p>
+      </div>
+      <div class="tags">
+        <Tag v-for="(keyword, index) in keywords" :key="index" :keyword="keyword"></Tag>
       </div>
     </div>
     <div class="books-container" v-if="showResult">
-      <SingleBook v-for='book in searchResult' :key='book.id' :book='book'></SingleBook>
+      <div class="title">
+        <div class="chunk"></div>
+        <p>搜索结果</p>
+      </div>
+      <div class="searchResult">
+        <SingleBook v-for='book in searchResult' :key='book.id' :book='book'></SingleBook>
+      </div>
     </div>
     <p class="empty-tip" v-if="noResult">没有搜索到书籍</p>
   </div>
@@ -121,10 +125,10 @@ export default {
 			for (let i = 0; i < searchBook.length; i++) {
 				let itemTitle = searchBook[i].title
 				if (itemTitle.search(query) === 0) {
-          console.log(i)
-          this.searchResult.push(searchBook[i])
-          console.log('searchResult: ' + this.searchResult)
-          this.showResult = true
+					console.log(i)
+					this.searchResult.push(searchBook[i])
+					console.log('searchResult: ' + this.searchResult)
+					this.showResult = true
 				}
 			}
 		},
@@ -262,12 +266,35 @@ export default {
 
 	.books-container {
 		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		flex-wrap: wrap;
-		margin-top: 100rpx;
-		padding: 0 90rpx 0 90rpx;
-		width: 570rpx;
+		flex-direction: column;
+		margin: 50rpx 0 20rpx 0;
+		width: 690rpx;
+		font-size: 28rpx;
+
+		.title {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			line-height: 30rpx;
+
+			.chunk {
+				display: inline-block;
+				margin-right: 20rpx;
+				width: 10rpx;
+				height: 30rpx;
+				background-color: #000;
+			}
+		}
+
+		.searchResult {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			flex-wrap: wrap;
+			margin: 50rpx 0;
+			padding: 0 90rpx 0 90rpx;
+			width: 570rpx;
+		}
 	}
 
 	.empty-tip {
