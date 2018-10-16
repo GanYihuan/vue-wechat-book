@@ -25,7 +25,7 @@
         <SingleBook v-for='book in searchResult' :key='book.id' :book='book'></SingleBook>
       </div>
     </div>
-    <div class="empty-tip" v-if="noResult">没有搜索到书籍!</div>
+    <div class="empty-tip" v-if="noResult">{{tips}}</div>
   </div>
 </template>
 
@@ -54,7 +54,8 @@ export default {
 			searchBooks: [],
 			page: 0,
 			more: true,
-			booksTitle: []
+      booksTitle: [],
+      tips: '没有搜索到书籍'
 		}
 	},
 	onShow() {
@@ -82,8 +83,7 @@ export default {
 		},
 		onConfirm(tagName) {
 			let query = this.val || tagName
-			console.log('tagName: ' + tagName)
-			// console.log('comfirm query: ' + this.val)
+			console.log('comfirm query: ' + query)
 			let keywords = this.getHistory()
 			if (keywords) {
 				let index = keywords.indexOf(query)
@@ -115,21 +115,19 @@ export default {
 			for (let i = 0; i < searchBook.length; i++) {
 				let itemTitle = searchBook[i].title
 				if (itemTitle.search(query) === 0) {
-					console.log(1)
 					if (!this.searchResult.includes(searchBook[i])) {
-						this.searchResult.push(searchBook[i])
+            this.searchResult.push(searchBook[i])
+            this.tips = ''
 						console.log(2)
 					}
 					// console.log('searchResult: ' + this.searchResult)
 					this.showResult = true
 				} else {
-					this.noResult = true
+          this.noResult = true
+					console.log(3)
 				}
 			}
 			this.val = ''
-		},
-		confirmTag(tagName) {
-			console.log('tagName' + tagName)
 		}
 	}
 }
