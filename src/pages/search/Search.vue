@@ -53,6 +53,7 @@ export default {
 	flex-direction: column;
 	align-items: center;
 	width: 100%;
+  background-color: #f5f5f5;
 
 	.header {
 		display: flex;
