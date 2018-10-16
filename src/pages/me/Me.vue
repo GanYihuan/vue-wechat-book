@@ -47,9 +47,9 @@ export default {
 				avatarUrl: '../../../static/img/unlogin.png',
 				nickName: '未登录'
 			},
-      logged: false,
-      phone: '',
-      location: ''
+			logged: false,
+			phone: '',
+			location: ''
 		}
 	},
 	/* 跳转到该页面就自动执行, onShow 是微信 API 的生命周期 */
@@ -58,7 +58,7 @@ export default {
 		if (userInfo) {
 			this.userInfo = userInfo
 		}
-    /* [设置 title](https://developers.weixin.qq.com/miniprogram/dev/api/ui/navigation-bar/wx.setNavigationBarTitle.html) */
+		/* [设置 title](https://developers.weixin.qq.com/miniprogram/dev/api/ui/navigation-bar/wx.setNavigationBarTitle.html) */
 		wx.setNavigationBarTitle({
 			title: '登录'
 		})
@@ -83,10 +83,10 @@ export default {
 				openid: this.userInfo.openId
 			})
 			showModal('添加成功', `${res.title}添加成功`)
-    },
-    getPhone(e) {
-      console.log('手机型号获取中')
-      console.log(this.userInfo)
+		},
+		getPhone(e) {
+			console.log('手机型号获取中')
+			console.log(this.userInfo)
 			if (e.target.value) {
 				/* [getSystemInfoSync](https://developers.weixin.qq.com/miniprogram/dev/api/system/system-info/wx.getSystemInfoSync.html) */
 				const phoneInfo = wx.getSystemInfoSync()
@@ -96,8 +96,8 @@ export default {
 				/* 没选中 */
 				this.phone = ''
 			}
-    },
-    getGeo(e) {
+		},
+		getGeo(e) {
 			/* [百度地图 api 访问应用（AK）](http://lbsyun.baidu.com/apiconsole/key) */
 			const ak = 'rsKejfyowllq0dD0IjLbqUaFHiqMlU4Y'
 			/* [逆地理编码](http://lbsyun.baidu.com/index.php?title=webapi/guide/webservice-geocoding-abroad) */
@@ -106,7 +106,7 @@ export default {
 				/* [getLocation](https://developers.weixin.qq.com/miniprogram/dev/api/location/wx.getLocation.html) */
 				wx.getLocation({
 					success: geo => {
-            // console.log(geo)
+						// console.log(geo)
 						wx.request({
 							url,
 							data: {
@@ -117,7 +117,10 @@ export default {
 							success: res => {
 								console.log(res)
 								if (res.data.status === 0) {
-									this.location = res.data.result.addressComponent.province + ' ' + res.data.result.addressComponent.city
+									this.location =
+										res.data.result.addressComponent.province +
+										' ' +
+										res.data.result.addressComponent.city
 								} else {
 									this.location = '未知地点'
 								}
@@ -166,11 +169,11 @@ export default {
 
 <style lang='scss'>
 .me {
-  padding: 0 30rpx;
+	padding: 0 30rpx;
 
 	.userInfo {
 		margin-top: 100rpx;
-    text-align: center;
+		text-align: center;
 
 		img {
 			margin: 20rpx;
@@ -178,20 +181,20 @@ export default {
 			width: 150rpx;
 			height: 150rpx;
 		}
-  }
+	}
 
-  .phone {
+	.phone {
 		margin: 20rpx 0 0 0;
 		padding: 10rpx 20rpx;
-  }
+	}
 
-  .location {
+	.location {
 		margin: 20rpx 0 0 0;
 		padding: 10rpx 20rpx;
-  }
+	}
 
-  .btn {
-    border-radius: 100rpx;
-  }
+	.btn {
+		border-radius: 100rpx;
+	}
 }
 </style>
