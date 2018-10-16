@@ -34,7 +34,7 @@ const CONF = {
    */
   // create database cAuth
   mysql: {
-    host: 'localhost',
+    host: 'Localhost',
     port: 3306,
     user: 'root',
     db: 'cAuth',
@@ -43,7 +43,7 @@ const CONF = {
     // [AppID(小程序ID)](https://mp.weixin.qq.com/wxopen/devprofile?action=get_profile&token=1921737503&lang=zh_CN)
     // pass: 'wxabcaad13aeed9229',
     /* 生产环境 pass, MyAdmin pass */
-    // pass: 'Wedj8ysb',
+    // pass: 'Okyizhixiaoniao123',
     // --- 上线部署 end ---
     char: 'utf8mb4'
   },
