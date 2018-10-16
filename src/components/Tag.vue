@@ -1,5 +1,5 @@
 ﻿<template>
-  <div class="tag">
+  <div class="tag" @click="clickMe">
     <p>{{keyword}}</p>
   </div>
 </template>
@@ -10,6 +10,11 @@ export default {
 		keyword: {
 			type: String,
 			default: ''
+		}
+	},
+	methods: {
+		clickMe() {
+			this.$emit('select')
 		}
 	}
 }

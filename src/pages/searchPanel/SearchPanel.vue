@@ -13,7 +13,7 @@
         <p>历史搜索</p>
       </div>
       <div class="tags">
-        <Tag v-for="(keyword, index) in keywords" :key="index" :keyword="keyword"></Tag>
+        <Tag v-for="(keyword, index) in keywords" :key="index" :keyword="keyword" @select="onConfirm(keyword)"></Tag>
       </div>
     </div>
     <div class="books-container" v-if="showResult">
@@ -25,13 +25,15 @@
         <SingleBook v-for='book in searchResult' :key='book.id' :book='book'></SingleBook>
       </div>
     </div>
-    <p class="empty-tip" v-if="noResult">没有搜索到书籍</p>
+    <div class="empty-tip" v-if="noResult">没有搜索到书籍!</div>
   </div>
 </template>
 
 <script>
+// showResult: true && 查得到结果时 -> noResult: false,   查不到结果时 noResult: false
+// import { mapGetters, mapMutations } from 'vuex'
 import { mapGetters } from 'vuex'
-import { get } from '@/util'
+// import { get } from '@/util'
 import Tag from '@/components/Tag'
 import SingleBook from '@/components/SingleBook'
 
@@ -63,21 +65,25 @@ export default {
 		})
 	},
 	computed: {
-		// ...mapState(['books']),
+		// ...mapGetters(['books', 'noResult'])
 		...mapGetters(['books'])
 	},
 	methods: {
+		// ...mapMutations({
+		// 	noResult: 'NO_RESULT'
+		// }),
 		del() {
 			this.val = ''
 		},
 		getHistory() {
 			let keywords = wx.getStorageSync(this.key)
-			console.log('getHistory keywords: ' + keywords)
+			// console.log('getHistory keywords: ' + keywords)
 			return keywords
 		},
-		onConfirm() {
-			let query = this.val
-			console.log('comfirm query: ' + this.val)
+		onConfirm(tagName) {
+			let query = this.val || tagName
+			console.log('tagName: ' + tagName)
+			// console.log('comfirm query: ' + this.val)
 			let keywords = this.getHistory()
 			if (keywords) {
 				let index = keywords.indexOf(query)
@@ -94,24 +100,8 @@ export default {
 				wx.setStorageSync(this.key, keywords)
 			}
 			this.keywords = keywords
-			console.log('confirm after keyword: ' + this.keywords)
-			this.val = ''
-			/* 查出所有图书, 带查询书名 query, 只显示 query 结果 */
-			// this.getList(true, query)
-			console.log('books: ' + this.books)
-			// this.getBookTitle()
-			// for (let i = 0; i < this.booksTitle.length; i++) {
-			// 	let oneBook = this.booksTitle[i]
-			// 	console.log('转成字符串的书名: ' + JSON.stringify(oneBook))
-			// 	console.log('!!' + oneBook.indexOf(query))
-			// 	if (oneBook.indexOf(query) === 0) {
-			// 		this.searchBooks.push(oneBook)
-			// 	} else {
-			// 		console.log('最终结果: ')
-			//   }
-			//   console.log('最终结果: ' + this.searchBooks)
-			// }
-
+			// console.log('confirm after keyword: ' + this.keywords)
+			// console.log('books: ' + this.books)
 			/*
       搜索结果 query
       查找出 query 位于 books 的位置
@@ -121,60 +111,25 @@ export default {
 			let res = this.books
 			// 目标 books: [{},{},{}...]
 			let searchBook = res.slice()
-			console.log(searchBook)
+			// console.log(searchBook)
 			for (let i = 0; i < searchBook.length; i++) {
 				let itemTitle = searchBook[i].title
 				if (itemTitle.search(query) === 0) {
-					console.log(i)
-					this.searchResult.push(searchBook[i])
-					console.log('searchResult: ' + this.searchResult)
+					console.log(1)
+					if (!this.searchResult.includes(searchBook[i])) {
+						this.searchResult.push(searchBook[i])
+						console.log(2)
+					}
+					// console.log('searchResult: ' + this.searchResult)
 					this.showResult = true
+				} else {
+					this.noResult = true
 				}
 			}
+			this.val = ''
 		},
-		getBookTitle() {
-			/*
-      搜索结果 query
-      查找出 query 位于 books 的位置
-      books 删除 (query 所在位置以外内容) || 获取 query 所在位置内容, 构建成新 new books, 传递给 SingleBook.vue
-      */
-			// 原始 books
-			let res = this.books
-			// 目标 books: [{},{},{}...]
-			let searchBook = res.slice()
-			console.log(searchBook)
-			// console.log('上面: ' + searchBook.length)
-			// for (let i = 0; i < booksLength; i++) {
-			// 	console.log('singleBook Title: ' + searchBook[i].title)
-			// 	this.booksTitle = this.booksTitle.concat(searchBook[i].title)
-			// 	let targetNum = searchBook.indexOf(searchBook[i].title)
-			// 	console.log('targetNum: ' + targetNum)
-			// }
-			// console.log('booksTitle: ' + this.booksTitle)
-		},
-		async getList(init, query) {
-			if (init) {
-				this.page = 0
-				this.more = true
-			}
-			/* [showNavigationBarLoading](https://developers.weixin.qq.com/miniprogram/dev/api/ui/navigation-bar/wx.showNavigationBarLoading.html) */
-			wx.showNavigationBarLoading()
-			const books = await get('/weapp/booklist', {
-				page: this.page,
-				singleTitle: query
-			})
-			if (books.list.length < 3 && this.page > 0) {
-				this.more = false
-				console.log('没有更多数据', this.more)
-			}
-			if (init) {
-				this.books = books.list
-				wx.stopPullDownRefresh()
-			} else {
-				/* 下拉刷新, 不能直接覆盖 books 而是累加 */
-				this.books = this.books.concat(books.list)
-			}
-			wx.hideNavigationBarLoading()
+		confirmTag(tagName) {
+			console.log('tagName' + tagName)
 		}
 	}
 }
@@ -219,6 +174,7 @@ export default {
 				display: inline-block;
 				border-top-right-radius: 30rpx;
 				border-bottom-right-radius: 30rpx;
+				width: 100%;
 				height: 68rpx;
 				font-size: 14px;
 			}
@@ -300,9 +256,10 @@ export default {
 	.empty-tip {
 		display: inline-block;
 		position: absolute;
-		top: 50%;
+		bottom: 20rpx;
 		width: 100%;
 		text-align: center;
+		font-size: 24rpx;
 		color: #ea5149;
 	}
 }

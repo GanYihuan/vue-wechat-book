@@ -8,6 +8,10 @@ const mutations = {
   [types.HAS_BOOKS](state, flag) {
     /* flag: boolean */
     state.hasBooks = flag
+  },
+  [types.NO_RESULT](state, flag) {
+    /* flag: boolean */
+    state.noResult = flag
   }
 }
 
