@@ -76,7 +76,7 @@ export default {
 		onConfirm(tagName) {
 			this.noResult = true
 			let query = this.val || tagName
-			console.log('搜索的值: ' + query)
+			// console.log('搜索的值: ' + query)
 			let keywords = this.getHistory()
 			if (keywords) {
 				let index = keywords.indexOf(query)
@@ -96,7 +96,7 @@ export default {
 			// console.log('confirm after keyword: ' + this.keywords)
 			// console.log('books: ' + this.books)
 			let res = this.books
-			// 目标 books: [{},{},{}...]
+			/* 目标 books: [{},{},{}...] */
 			let searchBook = res.slice()
 			// console.log(searchBook)
 			for (let i = 0; i < searchBook.length; i++) {
