@@ -30,10 +30,7 @@
 </template>
 
 <script>
-// showResult: true && 查得到结果时 -> noResult: false,   查不到结果时 noResult: false
-// import { mapGetters, mapMutations } from 'vuex'
 import { mapGetters } from 'vuex'
-// import { get } from '@/util'
 import Tag from '@/components/Tag'
 import SingleBook from '@/components/SingleBook'
 
@@ -65,13 +62,9 @@ export default {
 		})
 	},
 	computed: {
-		// ...mapGetters(['books', 'noResult'])
 		...mapGetters(['books'])
 	},
 	methods: {
-		// ...mapMutations({
-		// 	noResult: 'NO_RESULT'
-		// }),
 		del() {
 			this.val = ''
 		},
@@ -83,7 +76,7 @@ export default {
 		onConfirm(tagName) {
 			this.noResult = true
 			let query = this.val || tagName
-			console.log('comfirm query: ' + query)
+			console.log('搜索的值: ' + query)
 			let keywords = this.getHistory()
 			if (keywords) {
 				let index = keywords.indexOf(query)
@@ -102,12 +95,6 @@ export default {
 			this.keywords = keywords
 			// console.log('confirm after keyword: ' + this.keywords)
 			// console.log('books: ' + this.books)
-			/*
-      搜索结果 query
-      查找出 query 位于 books 的位置
-      books 删除 (query 所在位置以外内容) || 获取 query 所在位置内容, 构建成新 new books, 传递给 SingleBook.vue
-      */
-			// 原始 books
 			let res = this.books
 			// 目标 books: [{},{},{}...]
 			let searchBook = res.slice()
@@ -128,15 +115,6 @@ export default {
 			}
 			this.val = ''
 		}
-		// tipStatus() {
-		// 	if (this.tips === 'hide') {
-		// 		this.noResult = false
-		// 	} else if (this.tips === 'hasSet') {
-		//     return
-		// 	} else {
-		//     this.noResult = true
-		//   }
-		// }
 	}
 }
 </script>
