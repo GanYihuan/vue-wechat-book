@@ -74,9 +74,13 @@ export default {
 			return keywords
 		},
 		onConfirm(tagName) {
-			this.noResult = true
 			let query = this.val || tagName
+      let patten = /^\s/
+			if (patten.test(query) || patten.test(tagName) || this.val.length === 0) {
+				return
+			}
 			// console.log('搜索的值: ' + query)
+			this.noResult = true
 			let keywords = this.getHistory()
 			if (keywords) {
 				let index = keywords.indexOf(query)

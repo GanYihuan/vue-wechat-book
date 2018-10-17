@@ -22,12 +22,12 @@
     >
       扫码添加图书
     </button>
-		<button
+    <button
       class='btn'
       v-else
-      @click='login'
       open-type="getUserInfo"
       lang="zh_CN"
+      @click='doLogin'
     >
       点击登录
     </button>
@@ -36,9 +36,9 @@
 
 <script>
 import qcloud from 'wafer2-client-sdk'
-// import { showSuccess, post, showModal } from '@/util'
 import config from '@/config'
-import { post, showModal } from '@/util'
+import { showSuccess, post, showModal } from '@/util'
+import { mapMutations } from 'vuex'
 
 export default {
 	data() {
@@ -64,6 +64,9 @@ export default {
 		})
 	},
 	methods: {
+		...mapMutations({
+			hasBooks: 'HAS_BOOKS'
+		}),
 		scanBook() {
 			/* [scanCode](https://developers.weixin.qq.com/miniprogram/dev/api/device/scan/wx.scanCode.html) */
 			wx.scanCode({
@@ -132,19 +135,25 @@ export default {
 				this.location = ''
 			}
 		},
-		login() {
+		doLogin() {
+			/* [qcloud 获取用户信息 wafer2-client-sdk](https://github.com/tencentyun/wafer-client-sdk/) */
+			/* [getStorageSync 获取缓存数据](https://developers.weixin.qq.com/miniprogram/dev/api/storage/wx.getStorageSync.html) */
 			let user = wx.getStorageSync('userInfo')
 			if (!user) {
-				const session = qcloud.Session.get()
-				if (session) {
+				if (user) {
+					// 第二次登录
+					// 或者本地已经有登录态
+					// 可使用本函数更新登录态
 					qcloud.loginWithCode({
 						success: res => {
-							this.userInfo = res
+							console.log(res)
+							/* [setStorageSync 数据缓存](https://developers.weixin.qq.com/miniprogram/dev/api/storage/wx.setStorageSync.html) */
 							wx.setStorageSync('userInfo', res)
-							console.log('第二次登录登录成功', res)
+							this.userInfo = res
+							showSuccess('第二次登录成功')
 						},
 						fail: err => {
-							console.error('第二次登录登录错误', err)
+							console.log('第二次登录失败', err)
 						}
 					})
 				} else {
@@ -152,16 +161,19 @@ export default {
 					qcloud.setLoginUrl(config.loginUrl)
 					qcloud.login({
 						success: res => {
-							this.userInfo = res
+							console.log(res)
+							/* [setStorageSync 数据缓存](https://developers.weixin.qq.com/miniprogram/dev/api/storage/wx.setStorageSync.html) */
 							wx.setStorageSync('userInfo', res)
-							console.log('登录成功', res)
+							this.userInfo = res
+							showSuccess('登录成功')
 						},
 						fail: err => {
-							console.error('登录错误', err)
+							console.log('登录失败', err)
 						}
 					})
 				}
 			}
+			this.hasBooks(true)
 		}
 	}
 }

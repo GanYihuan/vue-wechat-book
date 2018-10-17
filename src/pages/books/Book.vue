@@ -1,16 +1,21 @@
 ﻿<template>
-  <div>
-    <TopSwiper :tops='tops'></TopSwiper>
-    <Pic v-for='book in books' :key='book.id' :book='book'></Pic>
-    <p class='text-footer' v-if='!more'>
-      没有更多数据!
-    </p>
+  <div class='book'>
+    <div v-if='hasBooks'>
+      <TopSwiper :tops='tops'></TopSwiper>
+      <Pic v-for='book in books' :key='book.id' :book='book'></Pic>
+      <p class='text-footer' v-show='!more'>
+        没有更多数据!
+      </p>
+    </div>
+    <div class='text-footer' v-else>
+      请去登录界面扫码添加图书！
+    </div>
   </div>
 </template>
 
 <script>
 /* vuex grammer suger */
-import { mapMutations } from 'vuex'
+import { mapMutations, mapGetters } from 'vuex'
 import { get } from '@/util'
 import Pic from '@/components/Pic'
 import TopSwiper from '@/components/TopSwiper'
@@ -28,9 +33,19 @@ export default {
 			tops: []
 		}
 	},
+	computed: {
+		...mapGetters(['hasBooks'])
+	},
 	mounted() {
 		this.getList(true)
 		this.getTop()
+	},
+	/* 跳转到该页面就自动执行, onShow 是微信 API 的生命周期 */
+	onShow() {
+		/* [设置 title](https://developers.weixin.qq.com/miniprogram/dev/api/ui/navigation-bar/wx.setNavigationBarTitle.html) */
+		wx.setNavigationBarTitle({
+			title: '收藏的图书'
+		})
 	},
 	/* 微信生命周期 */
 	/* app.json */
@@ -53,8 +68,7 @@ export default {
 		/* invoked vuex/mutations */
 		...mapMutations({
 			/* SET_BOOKS: vuex/mutation-type */
-			setBooks: 'SET_BOOKS',
-			hasBooks: 'HAS_BOOKS'
+			setBooks: 'SET_BOOKS'
 		}),
 		async getList(init) {
 			if (init) {
@@ -63,18 +77,16 @@ export default {
 			}
 			/* [showNavigationBarLoading](https://developers.weixin.qq.com/miniprogram/dev/api/ui/navigation-bar/wx.showNavigationBarLoading.html) */
 			wx.showNavigationBarLoading()
-      let hasBooks = true
 			const books = await get('/weapp/booklist', { page: this.page })
 			if (books.list.length < 3 && this.page > 0) {
 				this.more = false
 				console.log('没有更多数据', this.more)
 			}
 			if (init) {
-        this.books = books.list
+				this.books = books.list
 				/* this.setSinger: ...mapMutations */
 				/* Save data to vuex/state */
-        this.setBooks(this.books)
-				this.hasBooks(hasBooks)
+				this.setBooks(this.books)
 				wx.stopPullDownRefresh()
 			} else {
 				/* 下拉刷新, 不能直接覆盖 books 而是累加 */
@@ -82,7 +94,6 @@ export default {
 				/* this.setSinger: ...mapMutations */
 				/* Save data to vuex/state */
 				this.setBooks(this.books)
-        this.hasBooks(hasBooks)
 			}
 			wx.hideNavigationBarLoading()
 		},
@@ -94,3 +105,12 @@ export default {
 	}
 }
 </script>
+
+<style lang='scss'>
+.text-footer {
+  position: absolute;
+  bottom: 100rpx;
+  left: 0;
+  right: 0;
+}
+</style>
