@@ -22,12 +22,21 @@
     >
       扫码添加图书
     </button>
-    <button
+    <!-- <button
       class='btn'
       v-else
       open-type="getUserInfo"
       lang="zh_CN"
       @click='doLogin'
+    >
+      点击登录
+    </button> -->
+    <button
+      v-else
+      class='btn'
+      open-type="getUserInfo"
+      lang="zh_CN"
+      @getuserinfo="doLogin"
     >
       点击登录
     </button>
@@ -175,6 +184,16 @@ export default {
 			}
 			this.hasBooks(true)
 		}
+		// onGotUserInfo(e) {
+		// 	let user = wx.getStorageSync('userInfo')
+		// 	if (!user) {
+		//     wx.setStorageSync('userInfo', e.mp.detail.userInfo)
+		//     this.userInfo = e.mp.detail.userInfo
+		//     showSuccess('获取用户信息成功')
+		// 	}
+		//   console.log(e.mp.detail.userInfo)
+		//   this.hasBooks(true)
+		// }
 	}
 }
 </script>
