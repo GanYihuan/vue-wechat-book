@@ -4,12 +4,12 @@
       <img :src='userInfo.avatarUrl' alt='用户微信头像'>
       <p>{{userInfo.nickName}}</p>
     </div>
-    <div class='phone' v-if='userInfo.openId'>
+    <div class='phone' v-if='userInfo.city'>
       手机型号：
       <switch color='#EA5A49' :checked='phone' @change='getPhone'></switch>
       <span class='text-primary'>{{phone}}</span>
     </div>
-    <div class='location' v-if='userInfo.openId'>
+    <div class='location' v-if='userInfo.city'>
       所在城市：
       <!-- [switch](https://developers.weixin.qq.com/miniprogram/dev/component/switch.html) -->
       <switch color='#EA5A49' :checked='location' @change='getGeo'></switch>
@@ -17,7 +17,7 @@
     </div>
     <button
       class='btn'
-      v-if='userInfo.openId'
+      v-if='userInfo.city'
       @click='scanBook'
     >
       扫码添加图书
@@ -84,7 +84,7 @@ export default {
 						this.addBook(res.result)
 					}
 				}
-			})
+      })
 		},
 		/* isbn: 书的编号 */
 		async addBook(isbn) {
@@ -155,6 +155,18 @@ export default {
 					// 可使用本函数更新登录态
 					qcloud.loginWithCode({
 						success: res => {
+              // qcloud.request({
+							// 	/* 想要使用 optionId 要请求 server/routes/index.js/用户信息接口 */
+							// 	url: config.userUrl,
+							// 	login: true,
+							// 	success: userRes => {
+							// 		console.log(userRes)
+							// 		/* [setStorageSync 数据缓存](https://developers.weixin.qq.com/miniprogram/dev/api/storage/wx.setStorageSync.html) */
+							// 		wx.setStorageSync('userInfo', userRes.data.data)
+							// 		this.userInfo = userRes.data.data
+							// 		showSuccess('登录成功')
+							// 	}
+							// })
 							console.log(res)
 							/* [setStorageSync 数据缓存](https://developers.weixin.qq.com/miniprogram/dev/api/storage/wx.setStorageSync.html) */
 							wx.setStorageSync('userInfo', res)
@@ -170,6 +182,18 @@ export default {
 					qcloud.setLoginUrl(config.loginUrl)
 					qcloud.login({
 						success: res => {
+              // qcloud.request({
+							// 	/* 想要使用 optionId 要请求 server/routes/index.js/用户信息接口 */
+							// 	url: config.userUrl,
+							// 	login: true,
+							// 	success: userRes => {
+							// 		console.log(userRes)
+							// 		/* [setStorageSync 数据缓存](https://developers.weixin.qq.com/miniprogram/dev/api/storage/wx.setStorageSync.html) */
+							// 		wx.setStorageSync('userInfo', userRes.data.data)
+							// 		this.userInfo = userRes.data.data
+							// 		showSuccess('登录成功')
+							// 	}
+							// })
 							console.log(res)
 							/* [setStorageSync 数据缓存](https://developers.weixin.qq.com/miniprogram/dev/api/storage/wx.setStorageSync.html) */
 							wx.setStorageSync('userInfo', res)
