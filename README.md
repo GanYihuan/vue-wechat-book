@@ -2,9 +2,19 @@
 
 > 面试作品 - 图书管理
 
+## 效果截图
+
+* ![推荐界面](static/推荐01.png)
+* ![推荐界面]("static/推荐02.png")
+* ![推荐界面]("static/推荐03.png")
+* ![搜索界面]("static/搜索01.png")
+* ![搜索界面]("static/搜索02.png")
+* ![登录界面]("static/登录01.png")
+* ![登录界面]("static/登录02.png")
+
 ## 启动方式
 
-* 开启MySQL `mysql.server start`
+* 开启 MySQL `mysql.server start`
 * `cd server` `nvm use 10.0.0` `npm run dev`
 * `cd net-book` `npm run dev`
 
@@ -25,7 +35,7 @@ nvm install 10.0.0
 nvm use 10.0.0
 ```
 
-> 将vuex中的数据持久化到本地 [使用vuex-persistedstate](https://github.com/robinvdvleuten/vuex-persistedstate)
+> 将 vuex 中的数据持久化到本地 [使用 vuex-persistedstate](https://github.com/robinvdvleuten/vuex-persistedstate)
 
 ```console
 npm install vuex-persistedstate
@@ -75,7 +85,7 @@ npm install sass-loader node-sass -D
 ## 上线
 
 * [Development Environment request Domain Name](https://qod21e5e.qcloud.la)
- **config.js**
+  **config.js**
 * **server/config.js**
 * 微信工具 -> 上传测试代码 -> 除'智能上传'全打钩,登录小程序管理后台 - 开发管理 - 开发版本 就可以找到刚提交上传的版本了
 * [操作](https://console.cloud.tencent.com/lav2/dev)
@@ -84,4 +94,4 @@ npm install sass-loader node-sass -D
 * MyAdmin user [生产环境](https://console.qcloud.com/lav2/production) user: root pass: Wedj8ysb
 * mysql: `use cAuth;` `show create table books;` `show create table comments;`
 * MyAdmin create database, copy mysql iTerm command
-* localhost, iTerm: `nslookup  localhost`
+* localhost, iTerm: `nslookup localhost`

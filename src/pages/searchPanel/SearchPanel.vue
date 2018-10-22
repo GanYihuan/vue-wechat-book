@@ -2,7 +2,7 @@
   <div class="searchPanel">
     <div class="header">
       <div class="search-container">
-        <image class="icon" src="../../../static/img/search.png" />
+        <image class="icon" src="../../../static/img/search.png" @click="onConfirm" />
         <input class="bar" placeholder="书籍名称" v-model="val" @confirm="onConfirm" />
         <image class="cancel-img" src="../../../static/img/cancel.png" @click="del" />
       </div>
@@ -162,7 +162,6 @@ export default {
 				display: inline-block;
 				border-top-right-radius: 30rpx;
 				border-bottom-right-radius: 30rpx;
-				width: 100%;
 				height: 68rpx;
 				font-size: 14px;
 			}
