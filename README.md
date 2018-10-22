@@ -4,13 +4,10 @@
 
 ## 效果截图
 
-* ![推荐界面](static/推荐01.png)
-* ![推荐界面]("static/推荐02.png")
-* ![推荐界面]("static/推荐03.png")
-* ![搜索界面]("static/搜索01.png")
-* ![搜索界面]("static/搜索02.png")
-* ![登录界面]("static/登录01.png")
-* ![登录界面]("static/登录02.png")
+* ![推荐界面](static/推荐01.png) * ![推荐界面](static/推荐02.png)
+* ![推荐界面](static/推荐03.png)
+* ![搜索界面](static/搜索01.png) * ![搜索界面](static/搜索02.png)
+* ![登录界面](static/登录01.png) * ![登录界面](static/登录02.png)
 
 ## 启动方式
 
