@@ -4,32 +4,85 @@
 
 ## 效果截图
 
-* ![推荐界面](static/推荐01.png) * ![推荐界面](static/推荐02.png)
-* ![推荐界面](static/推荐03.png)
-* ![搜索界面](static/搜索01.png) * ![搜索界面](static/搜索02.png)
-* ![登录界面](static/登录01.png) * ![登录界面](static/登录02.png)
+* ![图书界面](static/screenshot/推荐01.png) \* ![图书界面](static/screenshot/推荐02.png)
+* ![图书界面](static/screenshot/推荐03.png)
+* ![搜索界面](static/screenshot/搜索01.png) \* ![搜索界面](static/screenshot/搜索02.png)
+* ![登录界面](static/screenshot/登录01.png) \* ![登录界面](static/screenshot/登录02.png)
+
+## 功能介绍
+
+> 登录界面
+
+* 点击**点击登录**按钮获得用户信息, 用户微信头像，手机型号，所在城市
+* 扫描功能, 点击**扫描添加图书**能添加一本图书到图书界面
+
+> 图书界面
+
+* 查看扫描添加的图书的基本信息，可以下拉滚动, 点击图书能进入图书详情页
+* 图书详情页可以点击**转发好友**在微信上转发
+
+> 搜索界面
+
+* 下拉滚动查看扫描添加的图书，点击**搜索书籍**能跳转到搜索历史界面
+* 搜索框里面写入添加的图书名称能搜索出对应的书籍，并且能显示输入的内容到历史记录里面，点击对应历史记录内容能搜索对应图书
+* 点击搜索出的图书能跳转到图书详情页
 
 ## 启动方式
 
-* 开启 MySQL `mysql.server start`
-* `cd server` `nvm use 10.0.0` `npm run dev`
-* `cd net-book` `npm run dev`
+* 管理 node 版本 `npm i nvm` `nvm install 10.0.0`
+* 开启 MySQL `mysql.server start` `mysql -u root` `create database cAuth;`
+* `cd server` `nvm use 10.0.0` `npm install` `node tools/initdb.js` `npm run dev`
+* `cd net-book` `nvm use 10.0.0` `npm install` `npm run dev`
 
-## appid
-
-* wxabcaad13aeed9229
-
-## static
+## static 目录
 
 > 图书扫码用到的二维码
 
-## node
+## 插件和使用的技术
+
+> mpvue
 
 ```console
-<!-- 管理 node 版本 -->
-npm i nvm
-nvm install 10.0.0
 nvm use 10.0.0
+npm i vue -g
+vue init mpvue/mpvue-quickstart net-book
+```
+
+> Scss
+
+```console
+npm install sass-loader node-sass -D
+```
+
+> koa
+
+```console
+npm i koa -S
+npm i koa-router -S
+```
+
+> mysql
+
+```console
+brew install mysql
+npm install nodemon -g
+mysql.server start
+mysql -u root
+mysql> create database cAuth;
+```
+
+> ESLint
+
+* **package.json**
+
+```json
+"scripts": {
+  "lint": "eslint --ext .js,.vue src"
+}
+```
+
+```console
+npm run lint
 ```
 
 > 将 vuex 中的数据持久化到本地 [使用 vuex-persistedstate](https://github.com/robinvdvleuten/vuex-persistedstate)
@@ -38,48 +91,19 @@ nvm use 10.0.0
 npm install vuex-persistedstate
 ```
 
-## 用户中心登录界面
+> 用户中心登录界面
 
 * 小程序客户端腾讯云增强 SDK, 会话服务 [获取用户信息 wafer2-client-sdk](https://github.com/tencentyun/wafer-client-sdk/)
-* **App.vue** 获取用户信息后数据会储存到数据库里 cSessionInfo
 
 ```console
 npm install wafer2-client-sdk -S
-npm install sass-loader node-sass -D
 ```
 
-## 添加图书到后端 mysql
+> 星星组件
 
-* **pages/me/Me.vue** 添加图书到后端
-* **server/route/index.js**
-* **server/controllers/addbook.js**
+* **components/Rate.vue** [星星组件 vue-tiny-rate](https://github.com/shengxinjing/vue-tiny-rate)
 
-## 图书
-
-* 图书列表 **pages/books/Book.vue**
-* 星星组件 **components/Rate.vue** [vue-tiny-rate](https://github.com/shengxinjing/vue-tiny-rate)
-
-## 下拉刷新，加载
-
-* **pages/books/Book.vue**
-
-## 图书访问次数统计
-
-* **pages/detail/Detail.vue**
-* **server/controllers/bookDetail.js**
-
-## 轮播图
-
-* **server/controllers/top.js** 获取部分图书数据, 按照浏览数量来排序
-* **components/TopSwiper.vue**
-
-## 图书详情页
-
-* **components/BookInfo.vue**
-
-## 评论
-
-## 上线
+## 上线流程, 还在申请域名
 
 * [Development Environment request Domain Name](https://qod21e5e.qcloud.la)
   **config.js**
@@ -88,7 +112,7 @@ npm install sass-loader node-sass -D
 * [操作](https://console.cloud.tencent.com/lav2/dev)
 * ganehank.xyz
 * imoocinterview.xyz
-* MyAdmin user [生产环境](https://console.qcloud.com/lav2/production) user: root pass: Wedj8ysb
+* MyAdmin user [生产环境](https://console.qcloud.com/lav2/production) user: root pass: 一只
 * mysql: `use cAuth;` `show create table books;` `show create table comments;`
 * MyAdmin create database, copy mysql iTerm command
 * localhost, iTerm: `nslookup localhost`
