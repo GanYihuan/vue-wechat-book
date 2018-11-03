@@ -103,7 +103,7 @@ npm install wafer2-client-sdk -S
 
 * **components/Rate.vue** [星星组件 vue-tiny-rate](https://github.com/shengxinjing/vue-tiny-rate)
 
-## 上线流程, 还在申请域名
+## 上线流程
 
 * [Development Environment request Domain Name](https://qod21e5e.qcloud.la)
   **config.js**
