@@ -84,7 +84,7 @@ export default {
 						this.addBook(res.result)
 					}
 				}
-      })
+			})
 		},
 		/* isbn: 书的编号 */
 		async addBook(isbn) {
@@ -155,7 +155,7 @@ export default {
 					// 可使用本函数更新登录态
 					qcloud.loginWithCode({
 						success: res => {
-              // qcloud.request({
+							// qcloud.request({
 							// 	/* 想要使用 optionId 要请求 server/routes/index.js/用户信息接口 */
 							// 	url: config.userUrl,
 							// 	login: true,
@@ -172,6 +172,7 @@ export default {
 							wx.setStorageSync('userInfo', res)
 							this.userInfo = res
 							showSuccess('第二次登录成功')
+							this.hasBooks(true)
 						},
 						fail: err => {
 							console.log('第二次登录失败', err)
@@ -182,7 +183,7 @@ export default {
 					qcloud.setLoginUrl(config.loginUrl)
 					qcloud.login({
 						success: res => {
-              // qcloud.request({
+							// qcloud.request({
 							// 	/* 想要使用 optionId 要请求 server/routes/index.js/用户信息接口 */
 							// 	url: config.userUrl,
 							// 	login: true,
@@ -199,6 +200,7 @@ export default {
 							wx.setStorageSync('userInfo', res)
 							this.userInfo = res
 							showSuccess('登录成功')
+							this.hasBooks(true)
 						},
 						fail: err => {
 							console.log('登录失败', err)
@@ -206,7 +208,7 @@ export default {
 					})
 				}
 			}
-			this.hasBooks(true)
+			// this.hasBooks(true)
 		}
 		// onGotUserInfo(e) {
 		// 	let user = wx.getStorageSync('userInfo')
