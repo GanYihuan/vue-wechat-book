@@ -116,3 +116,9 @@ npm install wafer2-client-sdk -S
 * mysql: `use cAuth;` `show create table books;` `show create table comments;`
 * MyAdmin create database, copy mysql iTerm command
 * localhost, iTerm: `nslookup localhost`
+
+## 问题:
+
+1. phpMyAdmin 服务器为 Localhost
+2. 代码部署没有上传记录
+3. 微信小程序无法运行
