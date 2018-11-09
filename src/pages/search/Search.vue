@@ -54,7 +54,6 @@ export default {
 	align-items: center;
 	width: 100%;
   background-color: #f5f5f5;
-
 	.header {
 		display: flex;
 		flex-direction: row;
@@ -69,7 +68,6 @@ export default {
 		width: 100%;
 		height: 100rpx;
 		background-color: #fff;
-
 		.box {
 			display: flex;
 			flex-direction: row;
@@ -80,7 +78,6 @@ export default {
 			height: 68rpx;
 			color: #999;
 			background-color: #f5f5f5;
-
 			.header-img {
 				margin-right: 20rpx;
 				margin-bottom: -4rpx;
@@ -89,20 +86,17 @@ export default {
 			}
 		}
 	}
-
 	.sub-container {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		margin: 100rpx 0;
 		background-color: #f5f5f5;
-
 		.head-img {
 			margin-top: 40rpx;
 			width: 106rpx;
 			height: 34rpx;
 		}
-
 		.books-container {
 			display: flex;
 			flex-direction: row;
@@ -112,7 +106,6 @@ export default {
 			padding: 0 90rpx;
 		}
 	}
-
 	.footer {
 		position: absolute;
 		bottom: 100rpx;

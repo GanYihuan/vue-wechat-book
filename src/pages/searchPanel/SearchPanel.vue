@@ -129,7 +129,6 @@ export default {
 	flex-direction: column;
 	align-items: center;
 	width: 100%;
-
 	.header {
 		display: flex;
 		flex-direction: row;
@@ -141,7 +140,6 @@ export default {
 		width: 100%;
 		height: 100rpx;
 		background-color: #fff;
-
 		.search-container {
 			display: inline-flex;
 			flex-direction: row;
@@ -150,14 +148,12 @@ export default {
 			border-radius: 100rpx;
 			width: 100%;
 			background-color: #f5f5f5;
-
 			.icon {
 				margin-left: 24rpx;
 				margin-right: 16rpx;
 				width: 28rpx;
 				height: 28rpx;
 			}
-
 			.bar {
 				display: inline-block;
 				border-top-right-radius: 30rpx;
@@ -165,7 +161,6 @@ export default {
 				height: 68rpx;
 				font-size: 14px;
 			}
-
 			.cancel-img {
 				position: absolute;
 				right: 40rpx;
@@ -174,20 +169,17 @@ export default {
 			}
 		}
 	}
-
 	.history {
 		display: flex;
 		flex-direction: column;
 		margin: 160rpx 0 20rpx 0;
 		width: 690rpx;
 		font-size: 28rpx;
-
 		.title {
 			display: flex;
 			flex-direction: row;
 			align-items: center;
 			line-height: 30rpx;
-
 			.chunk {
 				display: inline-block;
 				margin-right: 20rpx;
@@ -196,7 +188,6 @@ export default {
 				background-color: #000;
 			}
 		}
-
 		.tags {
 			display: flex;
 			flex-direction: row;
@@ -206,20 +197,17 @@ export default {
 			width: 630rpx;
 		}
 	}
-
 	.books-container {
 		display: flex;
 		flex-direction: column;
 		margin: 50rpx 0 20rpx 0;
 		width: 690rpx;
 		font-size: 28rpx;
-
 		.title {
 			display: flex;
 			flex-direction: row;
 			align-items: center;
 			line-height: 30rpx;
-
 			.chunk {
 				display: inline-block;
 				margin-right: 20rpx;
@@ -228,7 +216,6 @@ export default {
 				background-color: #000;
 			}
 		}
-
 		.searchResult {
 			display: flex;
 			flex-direction: row;
@@ -239,7 +226,6 @@ export default {
 			width: 570rpx;
 		}
 	}
-
 	.empty-tip {
 		display: inline-block;
 		position: absolute;
