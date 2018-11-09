@@ -15,20 +15,10 @@
       <switch color='#EA5A49' :checked='location' @change='getGeo'></switch>
       <span class='text-primary'>{{location}}</span>
     </div>
-    <button
-      class='btn'
-      v-if='userInfo.city'
-      @click='scanBook'
-    >
+    <button class='btn' v-if='userInfo.city' @click='scanBook'>
       扫码添加图书
     </button>
-    <button
-      v-else
-      class='btn'
-      open-type="getUserInfo"
-      lang="zh_CN"
-      @getuserinfo="doLogin"
-    >
+    <button class='btn' v-else open-type="getUserInfo" lang="zh_CN" @getuserinfo="login">
       点击登录
     </button>
   </div>
@@ -45,15 +35,17 @@ export default {
 		return {
 			userInfo: {
 				avatarUrl: '../../../static/img/unlogin.png',
-				nickName: '未登录'
+				nickName: '扫码添加图书需要登录'
 			},
 			logged: false,
 			phone: '',
 			location: ''
 		}
-  },
-  /* 跳转到该页面就自动执行, onShow 是微信 API 的生命周期 */
+	},
+	/* 跳转到该页面就自动执行, onShow 是微信 API 的生命周期 */
 	onShow() {
+		wx.showShareMenu()
+		/* [getStorageSync 获取缓存数据](https://developers.weixin.qq.com/miniprogram/dev/api/storage/wx.getStorageSync.html) */
 		let userInfo = wx.getStorageSync('userInfo')
 		if (userInfo) {
 			this.userInfo = userInfo
@@ -96,7 +88,7 @@ export default {
 				// console.log(phoneInfo)
 				this.phone = phoneInfo.model
 			} else {
-        /* 没选中 */
+				/* 没选中 */
 				this.phone = ''
 			}
 		},
@@ -135,44 +127,39 @@ export default {
 				this.location = ''
 			}
 		},
-		doLogin() {
-      showToast('登录中', 'loading')
-			/* [qcloud 获取用户信息 wafer2-client-sdk](https://github.com/tencentyun/wafer-client-sdk/) */
-			/* [getStorageSync 获取缓存数据](https://developers.weixin.qq.com/miniprogram/dev/api/storage/wx.getStorageSync.html) */
-			let user = wx.getStorageSync('userInfo')
-			if (!user) {
-				if (user) {
-          /* 第二次登录 */
-					qcloud.loginWithCode({
-						success: res => {
-							console.log(res)
-							/* [setStorageSync 数据缓存](https://developers.weixin.qq.com/miniprogram/dev/api/storage/wx.setStorageSync.html) */
-							wx.setStorageSync('userInfo', res)
-							this.userInfo = res
-							showToast('第二次登录成功', 'success')
-							this.hasBooks(true)
-						},
-						fail: err => {
-							console.log('第二次登录失败', err)
-						}
-					})
-				} else {
-					// 首次登录
-					qcloud.setLoginUrl(config.loginUrl)
-					qcloud.login({
-						success: res => {
-							console.log(res)
-							/* [setStorageSync 数据缓存](https://developers.weixin.qq.com/miniprogram/dev/api/storage/wx.setStorageSync.html) */
-							wx.setStorageSync('userInfo', res)
-							this.userInfo = res
-							showToast('登录成功', 'success')
-							this.hasBooks(true)
-						},
-						fail: err => {
-							console.log('登录失败', err)
-						}
-					})
-				}
+		loginSuccess(res) {
+			showToast('登录成功', 'success')
+			/* [setStorageSync 数据缓存](https://developers.weixin.qq.com/miniprogram/dev/api/storage/wx.setStorageSync.html) */
+			wx.setStorageSync('userInfo', res)
+			this.userInfo = res
+			this.hasBooks(true)
+		},
+		login() {
+			showToast('登录中', 'loading')
+			qcloud.setLoginUrl(config.loginUrl)
+			const session = qcloud.Session.get()
+			if (session) {
+				/* 第二次登录 */
+				qcloud.loginWithCode({
+					success: res => {
+						console.log('第二次登录成功', res)
+						this.loginSuccess(res)
+					},
+					fail: err => {
+						console.log('第二次登录失败', err)
+					}
+				})
+			} else {
+				/* 首次登录 */
+				qcloud.login({
+					success: res => {
+						console.log('登录成功', res)
+						this.loginSuccess(res)
+					},
+					fail: err => {
+						console.log('登录失败', err)
+					}
+				})
 			}
 		}
 	}
