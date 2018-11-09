@@ -46,7 +46,7 @@
 <script>
 import qcloud from 'wafer2-client-sdk'
 import config from '@/config'
-import { showSuccess, post, showModal } from '@/util'
+import { showToast, post, showModal } from '@/util'
 import { mapMutations } from 'vuex'
 
 export default {
@@ -145,6 +145,7 @@ export default {
 			}
 		},
 		doLogin() {
+      showToast('登录中', 'loading')
 			/* [qcloud 获取用户信息 wafer2-client-sdk](https://github.com/tencentyun/wafer-client-sdk/) */
 			/* [getStorageSync 获取缓存数据](https://developers.weixin.qq.com/miniprogram/dev/api/storage/wx.getStorageSync.html) */
 			let user = wx.getStorageSync('userInfo')
@@ -164,14 +165,14 @@ export default {
 							// 		/* [setStorageSync 数据缓存](https://developers.weixin.qq.com/miniprogram/dev/api/storage/wx.setStorageSync.html) */
 							// 		wx.setStorageSync('userInfo', userRes.data.data)
 							// 		this.userInfo = userRes.data.data
-							// 		showSuccess('登录成功')
+							// 		showToast('登录成功')
 							// 	}
 							// })
 							console.log(res)
 							/* [setStorageSync 数据缓存](https://developers.weixin.qq.com/miniprogram/dev/api/storage/wx.setStorageSync.html) */
 							wx.setStorageSync('userInfo', res)
 							this.userInfo = res
-							showSuccess('第二次登录成功')
+							showToast('第二次登录成功', 'success')
 							this.hasBooks(true)
 						},
 						fail: err => {
@@ -192,14 +193,14 @@ export default {
 							// 		/* [setStorageSync 数据缓存](https://developers.weixin.qq.com/miniprogram/dev/api/storage/wx.setStorageSync.html) */
 							// 		wx.setStorageSync('userInfo', userRes.data.data)
 							// 		this.userInfo = userRes.data.data
-							// 		showSuccess('登录成功')
+							// 		showToast('登录成功')
 							// 	}
 							// })
 							console.log(res)
 							/* [setStorageSync 数据缓存](https://developers.weixin.qq.com/miniprogram/dev/api/storage/wx.setStorageSync.html) */
 							wx.setStorageSync('userInfo', res)
 							this.userInfo = res
-							showSuccess('登录成功')
+							showToast('登录成功', 'success')
 							this.hasBooks(true)
 						},
 						fail: err => {
@@ -215,7 +216,7 @@ export default {
 		// 	if (!user) {
 		//     wx.setStorageSync('userInfo', e.mp.detail.userInfo)
 		//     this.userInfo = e.mp.detail.userInfo
-		//     showSuccess('获取用户信息成功')
+		//     showToast('获取用户信息成功')
 		// 	}
 		//   console.log(e.mp.detail.userInfo)
 		//   this.hasBooks(true)
@@ -227,11 +228,9 @@ export default {
 <style lang='scss'>
 .me {
 	padding: 0 30rpx;
-
 	.userInfo {
 		margin-top: 100rpx;
 		text-align: center;
-
 		img {
 			margin: 20rpx;
 			border-radius: 50%;
@@ -239,17 +238,14 @@ export default {
 			height: 150rpx;
 		}
 	}
-
 	.phone {
 		margin: 20rpx 0 0 0;
 		padding: 10rpx 20rpx;
 	}
-
 	.location {
 		margin: 20rpx 0 0 0;
 		padding: 10rpx 20rpx;
 	}
-
 	.btn {
 		border-radius: 100rpx;
 	}
