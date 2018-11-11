@@ -1,6 +1,6 @@
 ﻿const state = {
   books: [],
-  hasBooks: false
+  hasBooks: true
 }
 
 export default state

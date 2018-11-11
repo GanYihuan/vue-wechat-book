@@ -34,7 +34,6 @@ export default {
 			/* 如果通用 请用 chunk 函数比如 lodash 的 chunk 方法 */
 			/* Chunk convers arrays like [1,2,3,4,5] into arrays of arrays like[[1,2],[3,4],[5]] */
 			let res = this.tops
-			console.log([res.slice(0, 3), res.slice(3, 6), res.slice(6)])
 			return [res.slice(0, 3), res.slice(3, 6), res.slice(6)]
 		}
 	},
@@ -51,7 +50,7 @@ export default {
 
 <style lang='scss'>
 .swiper {
-	margin-top: 10rpx;
+	margin: 10rpx 0 0 0;
 	.slide-image {
 		width: 33%;
 		height: 250rpx;

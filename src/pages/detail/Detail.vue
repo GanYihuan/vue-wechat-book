@@ -1,7 +1,6 @@
 ﻿<template>
   <div>
     <BookInfo :info='info'></BookInfo>
-    <!-- [button](https://developers.weixin.qq.com/miniprogram/dev/component/button.html) -->
     <button class='btn' open-type='share'>转发给好友</button>
   </div>
 </template>
@@ -9,7 +8,6 @@
 <script>
 import { get } from '@/util'
 import BookInfo from '@/components/BookInfo'
-
 export default {
 	components: {
 		BookInfo
@@ -49,7 +47,7 @@ export default {
 
 <style lang='scss'>
 .comment {
-	margin-top: 10px;
+	margin: 10px 0 0 0;
 	.textarea {
 		padding: 10rpx;
 		width: 730rpx;

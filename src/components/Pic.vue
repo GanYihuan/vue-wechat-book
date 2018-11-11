@@ -25,7 +25,6 @@
 
 <script>
 import Rate from '@/components/Rate'
-
 export default {
 	components: {
 		Rate
@@ -51,8 +50,7 @@ export default {
 <style lang='scss' scoped>
 .book-card {
 	display: flex;
-	margin-top: 10rpx;
-	margin-bottom: 10rpx;
+	margin: 10rpx 0;
 	padding: 10rpx;
 	font-size: 28rpx;
 	overflow: hidden;
@@ -68,7 +66,7 @@ export default {
 	.detail {
 		flex: 1;
 		.row {
-			margin-bottom: 10rpx;
+			margin: 0 0 10rpx 0;
 			line-height: 40rpx;
 			/* 超出显示...(two) */
       text-overflow: ellipsis;
