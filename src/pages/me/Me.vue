@@ -80,15 +80,11 @@ export default {
 			showModal('添加成功', `${res.title}添加成功`)
 		},
 		getPhone(e) {
-			console.log('手机型号获取中')
-			console.log(this.userInfo)
 			if (e.target.value) {
 				/* [getSystemInfoSync](https://developers.weixin.qq.com/miniprogram/dev/api/system/system-info/wx.getSystemInfoSync.html) */
 				const phoneInfo = wx.getSystemInfoSync()
-				// console.log(phoneInfo)
 				this.phone = phoneInfo.model
 			} else {
-				/* 没选中 */
 				this.phone = ''
 			}
 		},
@@ -101,7 +97,6 @@ export default {
 				/* [getLocation](https://developers.weixin.qq.com/miniprogram/dev/api/location/wx.getLocation.html) */
 				wx.getLocation({
 					success: geo => {
-						// console.log(geo)
 						wx.request({
 							url,
 							data: {
@@ -110,7 +105,6 @@ export default {
 								output: 'json'
 							},
 							success: res => {
-								console.log(res)
 								if (res.data.status === 0) {
 									this.location =
 										res.data.result.addressComponent.province +
@@ -170,7 +164,7 @@ export default {
 .me {
 	padding: 0 30rpx;
 	.userInfo {
-		margin-top: 100rpx;
+		margin: 100rpx 0 0 0;
 		text-align: center;
 		img {
 			margin: 20rpx;

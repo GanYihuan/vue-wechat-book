@@ -40,13 +40,11 @@ export default {
 	width: 240rpx;
 	height: 360rpx;
 	box-shadow: 4rpx 4rpx 6rpx #e3e3e3;
-
 	.img {
 		border-radius: 4rpx;
 		width: 100%;
 		height: 100%;
 	}
-
 	.description {
 		display: flex;
 		flex-direction: column;
@@ -64,7 +62,6 @@ export default {
 		width: 216rpx;
 		font-size: 24rpx;
 		background-color: #fff;
-
 		.title {
       margin-top: 10rpx;
       /* two ... */
@@ -72,7 +69,6 @@ export default {
 			white-space: nowrap;
 			overflow: hidden;
 		}
-
 		.author {
 			margin: 0 0 10rpx 0;
 			font-size: 20rpx;
@@ -82,7 +78,6 @@ export default {
 			white-space: nowrap;
 			overflow: hidden;
 		}
-
 		.foot {
 			display: flex;
 			flex-direction: row;
