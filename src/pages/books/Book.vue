@@ -14,7 +14,6 @@
 </template>
 
 <script>
-/* vuex grammer suger */
 import { mapMutations, mapGetters } from 'vuex'
 import { get } from '@/util'
 import Pic from '@/components/Pic'
@@ -40,34 +39,26 @@ export default {
 		this.getList(true)
 		this.getTop()
 	},
-	/* 跳转到该页面就自动执行, onShow 是微信 API 的生命周期 */
 	onShow() {
 		/* [设置 title](https://developers.weixin.qq.com/miniprogram/dev/api/ui/navigation-bar/wx.setNavigationBarTitle.html) */
 		wx.setNavigationBarTitle({
 			title: '收藏的图书'
 		})
 	},
-	/* 微信生命周期 */
-	/* app.json */
-	/* [refresh](https://developers.weixin.qq.com/miniprogram/dev/framework/config.html#%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE) */
 	onPullDownRefresh() {
 		console.log('下拉')
 		this.getList(true)
 		this.getTop()
 	},
-	/* 微信生命周期 */
 	onReachBottom() {
 		if (!this.more) {
-			/* 没有更多了 */
 			return false
 		}
 		this.page = this.page + 1
 		this.getList()
 	},
 	methods: {
-		/* invoked vuex/mutations */
 		...mapMutations({
-			/* SET_BOOKS: vuex/mutation-type */
 			setBooks: 'SET_BOOKS'
 		}),
 		async getList(init) {
@@ -84,14 +75,11 @@ export default {
 			}
 			if (init) {
 				this.books = books.list
-				/* this.setSinger: ...mapMutations */
 				/* Save data to vuex/state */
 				this.setBooks(this.books)
 				wx.stopPullDownRefresh()
 			} else {
-				/* 下拉刷新, 不能直接覆盖 books 而是累加 */
 				this.books = this.books.concat(books.list)
-				/* this.setSinger: ...mapMutations */
 				/* Save data to vuex/state */
 				this.setBooks(this.books)
 			}
