@@ -34,24 +34,13 @@ module.exports = async ctx => {
     const bookinfo = await getJSON(url)
     const rate = bookinfo.rating.average
     const { title, image, alt, publisher, summary, price } = bookinfo
-    // 变成-> tag: "科幻 1000, 小说 500, ..."
+    // 变成 -> tag: "科幻 1000, 小说 500, ..."
     const tags = bookinfo.tags
       .map(v => {
         return `${v.title} ${v.count}`
       })
       .join(',')
     const author = bookinfo.author.join(',')
-    console.log('title!!!: ', {
-      rate,
-      title,
-      image,
-      alt,
-      publisher,
-      summary,
-      price,
-      tags,
-      author
-    })
     try {
       /* 数据插入 mysql 库 */
       /* insert 要写 try catch */

@@ -13,22 +13,18 @@ export default {
 	font-size: 24rpx;
 	color: #ea5149;
 }
-
 .text-primary {
 	color: #ea5149;
 }
-
 .page-title {
 	padding-left: 40rpx;
 	line-height: 80rpx;
 	font-size: 28rpx;
 	background: #eee;
 }
-
 .right {
 	float: right;
 }
-
 .btn {
 	margin-top: 20rpx;
 	margin-bottom: 20rpx;
@@ -41,7 +37,6 @@ export default {
 	color: white;
 	background: #ea5a49;
 }
-
 .btn:active {
 	background: #fa5a49;
 }
