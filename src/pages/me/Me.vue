@@ -1,5 +1,15 @@
 ﻿<template>
   <div class='me'>
+    <div class="date-container">
+      <div class="date-container">
+        <div class="date">{{date}}</div>
+        <div class="line"></div>
+      </div>
+      <div class="yearMonth-container">
+        <div class="year">{{year}}</div>
+        <div class="month">{{month}}</div>
+      </div>
+    </div>
     <div class='userInfo'>
       <img :src='userInfo.avatarUrl' alt='用户微信头像'>
       <p>{{userInfo.nickName}}</p>
@@ -39,8 +49,34 @@ export default {
 			},
 			logged: false,
 			phone: '',
-			location: ''
+			location: '',
+			months: [
+				'一月',
+				'二月',
+				'三月',
+				'四月',
+				'五月',
+				'六月',
+				'七月',
+				'八月',
+				'九月',
+				'十月',
+				'十一月',
+				'十二月'
+			],
+			year: Number,
+      month: String,
+      date: Number
 		}
+	},
+	mounted() {
+		let date = new Date()
+    let iMonth = date.getMonth()
+    let iDate = date.getDate()
+		let iYear = date.getFullYear()
+		this.month = this.months[iMonth]
+    this.year = iYear
+    this.date = iDate
 	},
 	/* 跳转到该页面就自动执行, onShow 是微信 API 的生命周期 */
 	onShow() {
@@ -71,8 +107,6 @@ export default {
 		},
 		/* isbn: 书的编号 */
 		async addBook(isbn) {
-			console.log(isbn)
-			/* 传递给 server */
 			const res = await post('/weapp/addbook', {
 				isbn,
 				openid: this.userInfo.openId
@@ -133,7 +167,6 @@ export default {
 			qcloud.setLoginUrl(config.loginUrl)
 			const session = qcloud.Session.get()
 			if (session) {
-				/* 第二次登录 */
 				qcloud.loginWithCode({
 					success: res => {
 						console.log('第二次登录成功', res)
@@ -144,7 +177,6 @@ export default {
 					}
 				})
 			} else {
-				/* 首次登录 */
 				qcloud.login({
 					success: res => {
 						console.log('登录成功', res)
@@ -171,6 +203,42 @@ export default {
 			border-radius: 50%;
 			width: 150rpx;
 			height: 150rpx;
+		}
+	}
+	.date-container {
+		display: inline-flex;
+		flex-direction: row;
+		height: 60rpx;
+		.date-container {
+			display: flex;
+			flex-direction: row;
+			/* No 08 | 基于底部对齐 */
+			align-items: baseline;
+			.date {
+				margin: 0 14rpx 0 0;
+				/* 取消字体上下间距 */
+				line-height: 60rpx;
+				font-size: 60rpx;
+				/* 取消字体上下间距 */
+				font-weight: 800;
+			}
+			.line {
+				margin: 0 14rpx 0 0;
+				border-left: 1rpx solid #000;
+				height: 44rpx;
+			}
+		}
+		.yearMonth-container {
+			display: flex;
+			flex-direction: column;
+			margin: 5rpx 0 0 0;
+			.month {
+				line-height: 24rpx;
+				font-size: 24rpx;
+			}
+			.year {
+				font-size: 20rpx;
+			}
 		}
 	}
 	.phone {

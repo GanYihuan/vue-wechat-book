@@ -45,6 +45,7 @@ export function showToast(title, icon) {
   /* [showToast](https://developers.weixin.qq.com/miniprogram/dev/api/ui/interaction/wx.showToast.html) */
   wx.showToast({
     title: title,
-    icon: icon
+    icon: icon,
+    duration: 2000
   })
 }
