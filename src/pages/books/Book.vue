@@ -1,11 +1,12 @@
 ﻿<template>
   <div class='book'>
-    <div v-if='hasBooks'>
+    <!-- <div v-if='hasBooks'> -->
+    <div>
       <TopSwiper :tops='tops'></TopSwiper>
       <Pic v-for='book in books' :key='book.id' :book='book'></Pic>
       <p class='text-footer' v-show='!more'>没有更多数据!</p>
     </div>
-    <div class='text-footer' v-else>请去登录界面扫码添加图书！</div>
+    <!-- <div class='text-footer' v-else>请去登录界面扫码添加图书！</div> -->
   </div>
 </template>
 

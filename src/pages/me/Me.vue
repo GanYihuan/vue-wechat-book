@@ -1,6 +1,7 @@
 ﻿<template>
   <div class="me">
     <image class="bg" src="../../../static/img/my@bg.png"/>
+    <!-- <image class="bg" src="http://pj2iyex52.bkt.clouddn.com/my@bg.png"/> -->
     <div class="userInfo">
       <div class="avatarContainer">
         <!-- <Open
