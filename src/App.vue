@@ -25,7 +25,7 @@ export default {
 .right {
 	float: right;
 }
-.btn {
+/* .btn {
 	margin-top: 20rpx;
 	margin-bottom: 20rpx;
 	padding-left: 30rpx;
@@ -39,5 +39,5 @@ export default {
 }
 .btn:active {
 	background: #fa5a49;
-}
+} */
 </style>

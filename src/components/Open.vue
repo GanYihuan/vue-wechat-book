@@ -1,5 +1,5 @@
 ﻿<template>
-  <button class="btn" open-type="openType" lang="zh_CN" @click="onGetUserInfo">
+  <button class="button" open-type="openType" lang="zh_CN" @click="onGetUserInfo">
     <slot name="img"></slot>
   </button>
 </template>
@@ -26,7 +26,7 @@ export default {
 </script>
 
 <style>
-.btn {
+.button {
   padding: 0 !important;
   border: none !important;
 }

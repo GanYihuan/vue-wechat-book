@@ -1,41 +1,47 @@
 ﻿<template>
   <div class="me">
-    <div class="date-container">
-      <div class="date-container">
-        <div class="date">{{date}}</div>
-        <div class="line"></div>
-      </div>
-      <div class="yearMonth-container">
-        <div class="year">{{year}}</div>
-        <div class="month">{{month}}</div>
-      </div>
-    </div>
+    <image class="bg" src="../../../static/img/my@bg.png"/>
     <div class="userInfo">
-      <img :src="userInfo.avatarUrl" alt="用户微信头像">
-      <p>{{userInfo.nickName}}</p>
-    </div>
-    <!-- <div class="userInfo">
-      <Open
-        v-if="!hasUserInfo"
-        open-type="getUserInfo"
-        @getuserinfo="onGetUserInfo"
-      ></Open>
-      <div class="a" v-else>
-        <image class="avatar" :src="TuserInfo.avatarUrl" />
+      <div class="avatarContainer">
+        <!-- <Open
+          open-type="getUserInfo"
+          @getuserinfo="onGetUserInfo"
+        >
+          <image class="avatar" :src="userInfo.avatarUrl" slot="img" />
+        </Open> -->
+        <image class="avatar" :src="userInfo.avatarUrl"/>
         <open-data type="userNickName"></open-data>
       </div>
-    </div> -->
-    <div class="phone" v-if="userInfo.city">手机型号：
+      <div class="aboutContainer">
+        <div class="time-container">
+          <div class="date-container">
+            <div class="date">{{date}}</div>
+            <div class="line"></div>
+          </div>
+          <div class="yearMonth-container">
+            <div class="year">{{year}}</div>
+            <div class="month">{{month}}</div>
+          </div>
+        </div>
+        <div class="like-container">
+          <text class="book-num">{{likeBookCount}}</text>
+          <text class="description">喜欢的书</text>
+        </div>
+      </div>
+    </div>
+    <!--
+    <div class="phone">手机型号：
       <switch color="#EA5A49" :checked="phone" @change="getPhone"></switch>
       <span class="text-primary">{{phone}}</span>
     </div>
-    <div class="location" v-if="userInfo.city">所在城市：
-      <!-- [switch](https://developers.weixin.qq.com/miniprogram/dev/component/switch.html) -->
+    <div class="location">所在城市：
+      [switch](https://developers.weixin.qq.com/miniprogram/dev/component/switch.html)
       <switch color="#EA5A49" :checked="location" @change="getGeo"></switch>
       <span class="text-primary">{{location}}</span>
     </div>
-    <button class="btn" v-if="userInfo.city" @click="scanBook">扫码添加图书</button>
-    <button class="btn" v-else open-type="getUserInfo" lang="zh_CN" @getuserinfo="login">点击登录</button>
+    -->
+    <button class="btn" @click="scanBook">扫码添加图书</button>
+    <!-- <button class="btn" v-else open-type="getUserInfo" lang="zh_CN" @getuserinfo="login">点击登录</button> -->
   </div>
 </template>
 
@@ -44,16 +50,16 @@ import qcloud from "wafer2-client-sdk";
 import config from "@/config";
 import { showToast, post, showModal } from "@/util";
 import { mapMutations } from "vuex";
-import Open from "@/components/Open";
+// import Open from "@/components/Open";
 
 export default {
-  components: {
-    Open
-  },
+  // components: {
+  //   Open
+  // },
   data() {
     return {
+      likeBookCount: 0,
       hasUserInfo: true,
-      TuserInfo: null,
       userInfo: {
         avatarUrl: "../../../static/img/unlogin.png",
         nickName: "扫码添加图书需要登录"
@@ -112,12 +118,12 @@ export default {
           if (data.authSetting["scope.userInfo"]) {
             wx.getUserInfo({
               success: data => {
-                this.hasUserInfo = true
-                this.TuserInfo = data.userInfo
+                this.hasUserInfo = true;
+                this.userInfo = data.userInfo;
               }
             });
           } else {
-            this.hasUserInfo = false
+            this.hasUserInfo = false;
           }
         }
       });
@@ -125,8 +131,8 @@ export default {
     onGetUserInfo: function(event) {
       let userInfo = event.detail.userInfo;
       if (userInfo) {
-        this.hasUserInfo = true
-        this.TuserInfo = userInfo
+        this.hasUserInfo = true;
+        this.userInfo = userInfo;
       }
     },
     ...mapMutations({
@@ -231,56 +237,86 @@ export default {
 
 <style lang='scss'>
 .me {
-  padding: 0 30rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f5f5f5;
+  .bg {
+    width: 750rpx;
+    height: 574rpx;
+  }
   .userInfo {
     margin: 100rpx 0 0 0;
     text-align: center;
-    img {
+    position: absolute;
+    top: 50rpx;
+    .avatar {
       margin: 20rpx;
       border-radius: 50%;
       width: 150rpx;
       height: 150rpx;
     }
-    Open {
-      margin: 20rpx;
-      border-radius: 50%;
-      width: 150rpx;
-      height: 150rpx;
-    }
-  }
-  .date-container {
-    display: inline-flex;
-    flex-direction: row;
-    height: 60rpx;
-    .date-container {
-      display: flex;
-      flex-direction: row;
-      /* No 08 | 基于底部对齐 */
-      align-items: baseline;
-      .date {
-        margin: 0 14rpx 0 0;
-        /* 取消字体上下间距 */
-        line-height: 60rpx;
-        font-size: 60rpx;
-        /* 取消字体上下间距 */
-        font-weight: 800;
-      }
-      .line {
-        margin: 0 14rpx 0 0;
-        border-left: 1rpx solid #000;
-        height: 44rpx;
-      }
-    }
-    .yearMonth-container {
+    .avatarContainer {
       display: flex;
       flex-direction: column;
-      margin: 5rpx 0 0 0;
-      .month {
-        line-height: 24rpx;
-        font-size: 24rpx;
+      align-items: center;
+    }
+  }
+  .aboutContainer {
+    margin: 20px 0 0 0;
+    padding: 0 100rpx;
+    width: 550rpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .time-container {
+      display: inline-flex;
+      flex-direction: row;
+      height: 60rpx;
+      .date-container {
+        display: flex;
+        flex-direction: row;
+        /* No 08 | 基于底部对齐 */
+        align-items: baseline;
+        .date {
+          margin: 0 14rpx 0 0;
+          /* 取消字体上下间距 */
+          line-height: 60rpx;
+          font-size: 60rpx;
+          /* 取消字体上下间距 */
+          font-weight: 800;
+        }
+        .line {
+          margin: 0 14rpx 0 0;
+          border-left: 1rpx solid #000;
+          height: 44rpx;
+        }
       }
-      .year {
-        font-size: 20rpx;
+      .yearMonth-container {
+        display: flex;
+        flex-direction: column;
+        margin: 5rpx 0 0 0;
+        .month {
+          line-height: 24rpx;
+          font-size: 24rpx;
+        }
+        .year {
+          font-size: 20rpx;
+        }
+      }
+    }
+    .like-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      .book-num {
+        font-size: 36rpx;
+        color: #000;
+      }
+      .description {
+        font-size: 24rpx;
+        color: #999;
       }
     }
   }
@@ -293,7 +329,20 @@ export default {
     padding: 10rpx 20rpx;
   }
   .btn {
+    margin-top: 20rpx;
+    margin-bottom: 20rpx;
+    padding-left: 30rpx;
     border-radius: 100rpx;
+    // border-radius: 4rpx;
+    width: 80%;
+    height: 80rpx;
+    line-height: 80rpx;
+    font-size: 32rpx;
+    color: white;
+    background: #ea5a49;
+  }
+  .btn:active {
+    background: #fa5a49;
   }
 }
 </style>
