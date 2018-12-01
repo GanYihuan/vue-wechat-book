@@ -2,9 +2,9 @@
   <div class="searchPanel">
     <div class="header">
       <div class="search-container">
-        <image class="icon" src="../../../static/img/search.png" @click="onConfirm">
+        <image class="icon" src="../../../static/img/search.png" @click="onConfirm" />
         <input class="bar" placeholder="书籍名称" v-model="val" @confirm="onConfirm">
-        <image class="cancel-img" src="../../../static/img/cancel.png" @click="del">
+        <image class="cancel-img" src="../../../static/img/cancel.png" @click="del" />
       </div>
     </div>
     <div class="history">
@@ -14,7 +14,7 @@
       </div>
       <div class="tags">
         <Tag
-          v-for="(keyword, index) in keywords"
+          v-for="(keyword, index) in inputWords"
           :key="index"
           :keyword="keyword"
           @select="onConfirm(keyword)"
@@ -30,7 +30,7 @@
         <SingleBook v-for="book in searchResult" :key="book.id" :book="book"></SingleBook>
       </div>
     </div>
-    <div class="empty-tip" v-if="noResult">没有搜索到书籍</div>
+    <div class="empty-tip" v-if="noResult">没有搜索到"{{noResultBookName}}"书籍</div>
   </div>
 </template>
 
@@ -47,20 +47,16 @@ export default {
   data() {
     return {
       val: "",
-      key: "q",
-      max: 10,
-      keywords: [],
-      noResult: false,
+      noResult: true,
+      noResultBookName: '',
+      inputWords: [],
       showResult: false,
       searchResult: [],
-      searchBooks: [],
-      page: 0,
-      more: true,
-      booksTitle: []
+      key: "q",
+      max: 10
     };
   },
   onShow() {
-    this.keywords = this.getHistory();
     /* [设置 title](https://developers.weixin.qq.com/miniprogram/dev/api/ui/navigation-bar/wx.setNavigationBarTitle.html) */
     wx.setNavigationBarTitle({
       title: "搜索图书"
@@ -74,40 +70,33 @@ export default {
       this.val = "";
     },
     getHistory() {
-      let keywords = wx.getStorageSync(this.key);
-      // console.log('getHistory keywords: ' + keywords)
-      return keywords;
+      let history = wx.getStorageSync(this.key);
+      if (!history) {
+        return [];
+      }
+      return history;
     },
-    onConfirm(tagName) {
-      let query = this.val || tagName;
-      let patten = /^\s/;
-      if (patten.test(query) || patten.test(tagName) || this.val.length === 0) {
-        return;
-      }
-      // console.log('搜索的值: ' + query)
-      this.noResult = true;
-      let keywords = this.getHistory();
-      if (keywords) {
-        let index = keywords.indexOf(query);
+    addToHistory(query) {
+      let history = this.getHistory();
+      let index = history.indexOf(query);
+      let length = this.inputWords.length;
+      if (history) {
         if (index === -1) {
-          let length = keywords.length;
           if (length >= this.max) {
-            keywords.pop(query);
+            this.inputWords.pop(query);
           }
-          keywords.unshift(query);
+          this.inputWords.unshift(query);
         }
-        wx.setStorageSync(this.key, keywords);
+        wx.setStorageSync(this.key, query);
       } else {
-        keywords = [query];
-        wx.setStorageSync(this.key, keywords);
+        this.inputWords = [query];
+        wx.setStorageSync(this.key, query);
       }
-      this.keywords = keywords;
-      // console.log('confirm after keyword: ' + this.keywords)
-      // console.log('books: ' + this.books)
+    },
+    showSearchResult(query) {
       let res = this.books;
       /* 目标 books: [{},{},{}...] */
       let searchBook = res.slice();
-      // console.log(searchBook)
       for (let i = 0; i < searchBook.length; i++) {
         let itemTitle = searchBook[i].title;
         if (itemTitle.search(query) === 0) {
@@ -115,12 +104,20 @@ export default {
             this.searchResult.push(searchBook[i]);
             this.noResult = false;
           }
-          if (this.searchResult.includes(searchBook[i])) {
-            this.noResult = false;
-          }
-          // console.log('searchResult: ' + this.searchResult)
           this.showResult = true;
         }
+      }
+    },
+    onConfirm(keyword) {
+      let query = this.val || keyword
+      let patten = /^\s/;
+      if (patten.test(query) || this.val.length === 0) {
+        return;
+      }
+      this.addToHistory(query);
+      this.showSearchResult(query);
+      if (this.noResult) {
+        this.noResultBookName = query
       }
       this.val = "";
     }
