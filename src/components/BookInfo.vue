@@ -32,11 +32,17 @@
 
 <script>
 import Rate from '@/components/Rate'
+// import Like from '@/components/Like'
+import { mapGetters } from "vuex";
 export default {
 	components: {
-		Rate
+    // Like,
+    Rate
 	},
-	props: ['info'],
+  props: ['info'],
+  computed: {
+    ...mapGetters(["like"])
+  },
 	computed: {
 		userinfo() {
 			return this.info.user_info || {}
@@ -86,7 +92,7 @@ export default {
 			height: 40rpx;
 			border-radius: 50%;
 			vertical-align: middle;
-		}
+    }
 	}
 	.badge {
 		display: inline-block;

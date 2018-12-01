@@ -110,7 +110,7 @@ export default {
     this.hasGottenUserInfo();
   },
   methods: {
-    hasGottenUserInfo: function() {
+    hasGottenUserInfo() {
       /* 获取用户的当前设置 */
       wx.getSetting({
         success: data => {
@@ -128,7 +128,7 @@ export default {
         }
       });
     },
-    onGetUserInfo: function(event) {
+    onGetUserInfo(event) {
       let userInfo = event.detail.userInfo;
       if (userInfo) {
         this.hasUserInfo = true;
@@ -240,7 +240,6 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #f5f5f5;
   .bg {
     width: 750rpx;
     height: 574rpx;
@@ -329,6 +328,8 @@ export default {
     padding: 10rpx 20rpx;
   }
   .btn {
+    position: absolute;
+    bottom: 20rpx;
     margin-top: 20rpx;
     margin-bottom: 20rpx;
     padding-left: 30rpx;

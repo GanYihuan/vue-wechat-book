@@ -1,6 +1,7 @@
 ﻿const state = {
   books: [],
-  hasBooks: true
+  hasBooks: true,
+  like: 0
 }
 
 export default state
