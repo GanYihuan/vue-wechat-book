@@ -4,9 +4,9 @@
 
 ## 效果截图
 
-* 图书界面![推荐01](http://pj2iyex52.bkt.clouddn.com/%E6%8E%A8%E8%8D%9001.png) ![推荐02](http://pj2iyex52.bkt.clouddn.com/%E6%8E%A8%E8%8D%9002.png)
-* 搜索界面![搜索01](http://pj2iyex52.bkt.clouddn.com/%E6%90%9C%E7%B4%A201.png) ![搜索02](http://pj2iyex52.bkt.clouddn.com/%E6%90%9C%E7%B4%A202.png)
-* 扫码界面![推荐01](http://pj2iyex52.bkt.clouddn.com/%E6%89%AB%E7%A0%8101.png)
+* ![推荐01](http://pj2iyex52.bkt.clouddn.com/%E6%8E%A8%E8%8D%9001.png) ![推荐02](http://pj2iyex52.bkt.clouddn.com/%E6%8E%A8%E8%8D%9002.png)
+* ![搜索01](http://pj2iyex52.bkt.clouddn.com/%E6%90%9C%E7%B4%A201.png) ![搜索02](http://pj2iyex52.bkt.clouddn.com/%E6%90%9C%E7%B4%A202.png)
+* ![推荐01](http://pj2iyex52.bkt.clouddn.com/%E6%89%AB%E7%A0%8101.png)
 
 ## 功能介绍
 
