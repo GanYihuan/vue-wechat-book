@@ -4,9 +4,11 @@
 
 ## 效果截图
 
-* ![推荐01](http://pj2iyex52.bkt.clouddn.com/%E6%8E%A8%E8%8D%9001.png) ![推荐02](http://pj2iyex52.bkt.clouddn.com/%E6%8E%A8%E8%8D%9002.png)
-* ![搜索01](http://pj2iyex52.bkt.clouddn.com/%E6%90%9C%E7%B4%A201.png) ![搜索02](http://pj2iyex52.bkt.clouddn.com/%E6%90%9C%E7%B4%A202.png)
-* ![推荐01](http://pj2iyex52.bkt.clouddn.com/%E6%89%AB%E7%A0%8101.png)
+![推荐01](https://i.loli.net/2019/01/11/5c3777be4ecb3.png)
+![推荐02](https://i.loli.net/2019/01/11/5c37783cd8840.png)
+![搜索01](https://i.loli.net/2019/01/11/5c377859b5fd8.png)
+![搜索02](https://i.loli.net/2019/01/11/5c37787ab3246.png)
+![推荐01](https://i.loli.net/2019/01/11/5c377898e5bd0.png)
 
 ## 功能介绍
 

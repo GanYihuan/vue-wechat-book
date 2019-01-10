@@ -38,10 +38,11 @@ const CONF = {
     port: 3306,
     user: 'root',
     db: 'cAuth',
-    // pass: '',
+    /* 本地 */
+    pass: '',
     // --- 上线部署 start ---
-    // [AppID(小程序ID)](https://mp.weixin.qq.com/wxopen/devprofile?action=get_profile&token=1921737503&lang=zh_CN)
-    pass: 'wxabcaad13aeed9229',
+    /* [AppID(小程序ID)](https://mp.weixin.qq.com/wxopen/devprofile?action=get_profile&token=1921737503&lang=zh_CN) */
+    // pass: 'wxabcaad13aeed9229',
     /* 生产环境 pass, MyAdmin pass */
     // pass: 'Okyizhixiaoniao123',
     // --- 上线部署 end ---
